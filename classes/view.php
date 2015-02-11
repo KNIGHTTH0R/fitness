@@ -1,0 +1,27 @@
+<?php
+
+require_once Config::ROOT.'/libs/smarty3/Smarty.class.php';
+
+class View {
+
+	private static $_instance = null;
+	private $_smarty = null;
+
+	private function __construct() {
+		$this->_smarty = new Smarty();
+		$this->_smarty->setTemplateDir(Config::ROOT.'/templates');
+		$this->_smarty->setCompileDir(Config::ROOT.'/var/view/templates_c');
+		$this->_smarty->setCacheDir(Config::ROOT.'/var/view/cache');
+	}
+
+	public static function getInstance() {
+		if (self::$_instance == null)
+			self::$_instance = new self();
+		return self::$_instance;
+	}
+
+	public function __call($method,$args) {
+		return call_user_func_array(array($this->_smarty, $method), $args);
+	}
+
+}

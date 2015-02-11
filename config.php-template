@@ -1,0 +1,17 @@
+<?php
+
+class Config {
+
+	//core settings
+    const BASEURL   = '/';
+	const ROOT		= __DIR__;
+	const DEBUG		= true;
+
+	//database
+	const DB_HOST	= 'localhost';
+	const DB_USER	= 'root';
+	const DB_PASS	= 'root';
+	const DB_NAME	= 'dbfitness';
+	const DB_DEBUG	= false;
+
+}
