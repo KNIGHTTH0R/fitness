@@ -14,6 +14,7 @@ class Auth extends \Controller {
 			', array(
 				'username' => $_POST['username']
 			));
+            $result = $result->fetchAll();
 			if ($result
                     && isset($result[0])
 					&& password_verify($_POST['password'], $result[0]['dtpassword'])) {
@@ -23,12 +24,66 @@ class Auth extends \Controller {
 			}
 		}
 
-		return $this->View->fetch('login/form.tpl');
+		return $this->View->fetch('auth/login/form.tpl');
 	}
 
     public function logout() {
 		unset($_SESSION['auth']);
 		$this->redirect();
 	}
+
+    public function register() {
+        if (isset($_POST['lastName'])) {
+            if (empty($_POST['lastName'])
+                || empty($_POST['firstName'])
+                || empty($_POST['eMail'])
+                || empty($_POST['password'])
+                || empty($_POST['password2'])) {
+
+                echo 'Fill in all fields';
+
+            } elseif ($_POST['password'] != $_POST['password2']) {
+
+                echo 'Passwords do not match';
+
+            } else {
+
+                try {
+
+                    $result = $this->DB->execute('
+        				INSERT
+        				INTO tblfitness_user
+                          (dtlast_name, dtfirst_name, dtpassword, dtemail)
+                        VALUES
+                          (:last_name, :first_name, :password, :email)
+        			', array(
+        				'last_name'  => $_POST['lastName'],
+                        'first_name' => $_POST['firstName'],
+                        'password'   => password_hash($_POST['password'], PASSWORD_DEFAULT),
+                        'email'      => $_POST['eMail']
+        			));
+
+                    $this->redirect('auth/login');
+                    
+                } catch (\Exception $e) {
+
+                    switch ($e->getCode()) {
+
+                        case '23000':
+                            echo 'User already exists';
+                            break;
+
+                        default:
+                            echo 'Error while saving';
+                            break;
+                    }
+
+                }
+
+            }
+        }
+
+        return $this->View->fetch('auth/register/form.tpl');
+    }
 
 }

@@ -26,7 +26,7 @@ class DB {
 	public function execute($sql, $params) {
 		$stmt = $this->_pdo->prepare($sql);
 		$stmt->execute($params);
-		return $stmt->fetchAll();
+		return $stmt;
 	}
 
 }
