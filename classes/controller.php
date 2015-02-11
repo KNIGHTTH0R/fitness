@@ -10,4 +10,9 @@ class Controller {
 		$this->DB = \DB::getInstance();
 	}
 
+	public function redirect($url = '') {
+		header('Location: http://'.$_SERVER['HTTP_HOST'].\Config::BASEURL.$url);
+		exit;
+	}
+
 }

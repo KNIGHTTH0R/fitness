@@ -1,9 +1,9 @@
 <?php
 
 namespace Controller;
-class Login extends \Controller {
+class Auth extends \Controller {
 
-	public function index() {
+	public function login() {
 		if (!empty($_POST['username']) && !empty($_POST['password'])) {
 			$result = $this->DB->execute('
 				SELECT iduser, dtpassword
@@ -14,15 +14,21 @@ class Login extends \Controller {
 			', array(
 				'username' => $_POST['username']
 			));
-			if ($result && isset($result[0])
+			if ($result
+                    && isset($result[0])
 					&& password_verify($_POST['password'], $result[0]['dtpassword'])) {
-				$_SESSION['iduser'] = $iduser;
-				header('Location: http://'.$_SERVER['HTTP_HOST'].\Config::BASEURL.'admin');
-				return;
+				$_SESSION['auth']['user'] = $result[0]['iduser'];
+                $_SESSION['auth']['type'] = $result[0]['dttype'];
+				$this->redirect();
 			}
 		}
 
 		return $this->View->fetch('login/form.tpl');
+	}
+
+    public function logout() {
+		unset($_SESSION['auth']);
+		$this->redirect();
 	}
 
 }

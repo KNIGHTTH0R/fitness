@@ -21,6 +21,10 @@ class Router {
 		if (!method_exists($Object, $method))
 			return false;
 
+		// call before function
+		if (method_exists($Object, 'before'))
+			call_user_func_array(array($Object, 'before'), array());
+
 		return call_user_func_array(array($Object, $method), $args);
 	}
 
