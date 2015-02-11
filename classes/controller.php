@@ -15,4 +15,10 @@ class Controller {
 		exit;
 	}
 
+	public function isAuth() {
+		if (!isset($_SESSION['auth']))
+			return false;
+		return $_SESSION['auth'];
+	}
+
 }

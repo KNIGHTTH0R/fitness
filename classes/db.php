@@ -19,11 +19,11 @@ class DB {
 		return self::$_instance;
 	}
 
-	public function __call($method,$args) {
+	public function __call($method, $args) {
 		return call_user_func_array(array($this->_pdo, $method), $args);
 	}
 
-	public function execute($sql, $params) {
+	public function execute($sql, array $params = null) {
 		$stmt = $this->_pdo->prepare($sql);
 		$stmt->execute($params);
 		return $stmt;

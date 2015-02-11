@@ -4,7 +4,7 @@ namespace Controller;
 class Backend extends \Controller {
 
 	public function before() {
-        if (!isset($_SESSION['auth'])) {
+        if (!$this->isAuth()) {
             $this->redirect('auth/login');
         }
     }
