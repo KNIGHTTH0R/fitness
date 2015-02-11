@@ -12,7 +12,8 @@
 		<script src="{Config::BASEURL}js/main.js"></script>
 	</head>
 	<body class="tundra">
-		<nav class="navbar navbar-default navbar-fixed-top">
+		<img id="Logo" src="{Config::BASEURL}files/image/logo.jpg" />
+		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="{Config::BASEURL}">Fitness-Lounge</a>
