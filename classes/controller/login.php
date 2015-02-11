@@ -26,5 +26,3 @@ class Login extends \Controller {
 	}
 
 }
-
-?>
