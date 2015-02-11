@@ -12,6 +12,20 @@
 		<script src="{Config::BASEURL}js/main.js"></script>
 	</head>
 	<body class="tundra">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="{Config::BASEURL}">Fitness-Lounge</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+				{if $smarty.session.auth|default:false}
+					<li><a href="{Config::BASEURL}auth/logout">Logout</a></li>
+				{else}
+					<li><a href="{Config::BASEURL}auth/login">Login</a></li>
+				{/if}
+				</ul>
+			</div>
+		</nav>
 		<div class="container-fluid">
 			{$content}
 		</div>
