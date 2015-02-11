@@ -14,6 +14,8 @@ class Event extends \Controller {
         $result = $this->DB->execute('
             SELECT idevent, dtname, dtdescription, dtdate, dtduration, COUNT(fiuser) AS dtsubscribed
             FROM tblfitness_event
+            INNER JOIN tblfitness_event_type
+               ON idevent_type = fievent_type
             LEFT JOIN tblfitness_user2event
                ON idevent = fievent
               AND fiuser = :user
