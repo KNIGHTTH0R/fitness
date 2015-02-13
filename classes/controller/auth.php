@@ -4,27 +4,10 @@ namespace Controller;
 class Auth extends \Controller {
 
 	public function login() {
-		if (!empty($_POST['username']) && !empty($_POST['password'])) {
-			$result = $this->DB->execute('
-				SELECT iduser, dtpassword
-				FROM tblfitness_user
-				WHERE iduser = :username
-				   OR dtemail = :username
-				LIMIT 1
-			', array(
-				'username' => $_POST['username']
-			));
-            $result = $result->fetchAll();
-			if ($result
-                    && isset($result[0])
-					&& password_verify($_POST['password'], $result[0]['dtpassword'])) {
-				$_SESSION['auth']['user'] = $result[0]['iduser'];
-                $_SESSION['auth']['type'] = $result[0]['dttype'];
-				$this->redirect();
-			}
-		}
+		$this->handleLoginPost();
+		$this->handleRegisterPost();
 
-		return $this->View->fetch('auth/login/form.tpl');
+		return $this->View->fetch('auth/login.tpl');
 	}
 
     public function logout() {
@@ -32,58 +15,83 @@ class Auth extends \Controller {
 		$this->redirect();
 	}
 
-    public function register() {
-        if (isset($_POST['lastName'])) {
-            if (empty($_POST['lastName'])
-                || empty($_POST['firstName'])
-                || empty($_POST['eMail'])
-                || empty($_POST['password'])
-                || empty($_POST['password2'])) {
+	public function handleLoginPost() {
+		if (!isset($_POST['login']))
+		 	return;
 
-                echo 'Fill in all fields';
+		if (empty($_POST['login']['username'])
+				|| empty($_POST['login']['password']))
+			return;
 
-            } elseif ($_POST['password'] != $_POST['password2']) {
+		$result = $this->DB->execute('
+			SELECT iduser, dtpassword
+			FROM tblfitness_user
+			WHERE iduser = :username
+			   OR dtemail = :username
+			LIMIT 1
+		', array(
+			'username' => $_POST['login']['username']
+		));
+        $result = $result->fetchAll();
+		if ($result
+                && isset($result[0])
+				&& password_verify($_POST['login']['password'], $result[0]['dtpassword'])) {
+			$_SESSION['auth']['user'] = $result[0]['iduser'];
+            $_SESSION['auth']['type'] = $result[0]['dttype'];
+			$this->redirect();
+		}
+	}
 
-                echo 'Passwords do not match';
+	public function handleRegisterPost() {
+		if (!isset($_POST['register']))
+		 	return;
 
-            } else {
+        if (empty($_POST['register']['lastName'])
+	            || empty($_POST['register']['firstName'])
+	            || empty($_POST['register']['eMail'])
+	            || empty($_POST['register']['password'])
+	            || empty($_POST['register']['password2'])) {
+			echo 'Fill in all fields';
+			return;
+		}
 
-                try {
+        if ($_POST['password'] != $_POST['password2']) {
+			echo 'Passwords do not match';
+			return;
+		}
 
-                    $result = $this->DB->execute('
-        				INSERT
-        				INTO tblfitness_user
-                          (dtlast_name, dtfirst_name, dtpassword, dtemail)
-                        VALUES
-                          (:last_name, :first_name, :password, :email)
-        			', array(
-        				'last_name'  => $_POST['lastName'],
-                        'first_name' => $_POST['firstName'],
-                        'password'   => password_hash($_POST['password'], PASSWORD_DEFAULT),
-                        'email'      => $_POST['eMail']
-        			));
 
-                    $this->redirect('auth/login');
-                    
-                } catch (\Exception $e) {
+        try {
 
-                    switch ($e->getCode()) {
+            $result = $this->DB->execute('
+				INSERT
+				INTO tblfitness_user
+                  (dtlast_name, dtfirst_name, dtpassword, dtemail)
+                VALUES
+                  (:last_name, :first_name, :password, :email)
+			', array(
+				'last_name'  => $_POST['lastName'],
+                'first_name' => $_POST['firstName'],
+                'password'   => password_hash($_POST['password'], PASSWORD_DEFAULT),
+                'email'      => $_POST['eMail']
+			));
 
-                        case '23000':
-                            echo 'User already exists';
-                            break;
+            $this->redirect('auth/login');
 
-                        default:
-                            echo 'Error while saving';
-                            break;
-                    }
+        } catch (\Exception $e) {
 
-                }
+            switch ($e->getCode()) {
 
+                case '23000':
+                    echo 'User already exists';
+                    break;
+
+                default:
+                    echo 'Error while saving';
+                    break;
             }
-        }
 
-        return $this->View->fetch('auth/register/form.tpl');
-    }
+        }
+	}
 
 }

@@ -12,9 +12,11 @@
 		<script src="{Config::BASEURL}js/main.js"></script>
 	</head>
 	<body class="tundra">
-		<img id="Logo" src="{Config::BASEURL}files/image/logo.jpg" />
-		<nav class="navbar navbar-default navbar-static-top">
-			<div class="container-fluid">
+		<div class="container">
+			<img id="Logo" src="{Config::BASEURL}files/image/logo.jpg" />
+		</div>
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="{Config::BASEURL}">Fitness-Lounge</a>
 				</div>
@@ -27,7 +29,7 @@
 				</ul>
 			</div>
 		</nav>
-		<div class="container-fluid">
+		<div class="container">
 			{$content}
 		</div>
 	</body>
