@@ -1,11 +1,9 @@
 <form method="POST" class="auth-login">
 	<div class="form-group">
-		<label for="login_username">ID or E-Mail</label>
-		<input class="form-control" type="text" name="login[username]" id="login_username" />
+		<input class="form-control" type="text" name="login[username]" placeholder="ID or E-Mail" autofocus="autofocus" />
 	</div>
 	<div class="form-group">
-		<label for="login_password">Password</label>
-		<input class="form-control" type="password" name="login[password]" id="login_password" />
+		<input class="form-control" type="password" name="login[password]" placeholder="Password" />
 	</div>
-	<input type="submit" class="btn btn-default" value="Login" />
+	<input type="submit" class="btn btn-primary btn-block" value="Login" />
 </form>
