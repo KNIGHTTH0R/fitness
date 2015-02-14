@@ -21,6 +21,7 @@ $content = Router::call(isset($_GET['request'])? $_GET['request'] : '');
 $View->assign(array(
 	'title' => 'fitness-lounge.lu',
 	'lang' => 'fr',
-	'content' => $content
+	'content' => $content,
+	'message' => \Message::render()
 ));
 $View->display('main.tpl');

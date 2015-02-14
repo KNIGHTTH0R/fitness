@@ -30,6 +30,7 @@
 			</div>
 		</nav>
 		<div class="container">
+			{$message}
 			{$content}
 		</div>
 	</body>

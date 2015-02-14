@@ -20,8 +20,10 @@ class Auth extends \Controller {
 		 	return;
 
 		if (empty($_POST['login']['username'])
-				|| empty($_POST['login']['password']))
+				|| empty($_POST['login']['password'])) {
+			\Message::add('Invalid login');
 			return;
+		}
 
 		$result = $this->DB->execute('
 			SELECT iduser, dtpassword
@@ -33,13 +35,16 @@ class Auth extends \Controller {
 			'username' => $_POST['login']['username']
 		));
         $result = $result->fetchAll();
-		if ($result
-                && isset($result[0])
-				&& password_verify($_POST['login']['password'], $result[0]['dtpassword'])) {
-			$_SESSION['auth']['user'] = $result[0]['iduser'];
-            $_SESSION['auth']['type'] = $result[0]['dttype'];
-			$this->redirect();
+		if (!$result
+                || !isset($result[0])
+				|| !password_verify($_POST['login']['password'], $result[0]['dtpassword'])) {
+			\Message::add('Invalid login');
+			return;
 		}
+
+		$_SESSION['auth']['user'] = $result[0]['iduser'];
+        $_SESSION['auth']['type'] = $result[0]['dttype'];
+		$this->redirect();
 	}
 
 	public function handleRegisterPost() {
@@ -51,12 +56,12 @@ class Auth extends \Controller {
 	            || empty($_POST['register']['eMail'])
 	            || empty($_POST['register']['password'])
 	            || empty($_POST['register']['password2'])) {
-			echo 'Fill in all fields';
+			\Message::add('Fill in all fields');
 			return;
 		}
 
         if ($_POST['password'] != $_POST['password2']) {
-			echo 'Passwords do not match';
+			\Message::add('Passwords do not match');
 			return;
 		}
 
@@ -83,11 +88,11 @@ class Auth extends \Controller {
             switch ($e->getCode()) {
 
                 case '23000':
-                    echo 'User already exists';
+                    \Message::add('User already exists');
                     break;
 
                 default:
-                    echo 'Error while saving';
+                    \Message::add('Error while saving');
                     break;
             }
 
