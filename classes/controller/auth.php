@@ -45,7 +45,14 @@ class Auth extends \Controller {
 		$_SESSION['auth']['user'] = $result[0]['iduser'];
         $_SESSION['auth']['type'] = $result[0]['dttype'];
 		$_SESSION['auth']['name'] = $result[0]['dtfirst_name'].' '.$result[0]['dtlast_name'];
-		$this->redirect();
+
+		if (isset($_SESSION['request'])) {
+			$url = $_SESSION['request'];
+			unset($_SESSION['request']);
+		} else {
+			$url = null;
+		}
+		$this->redirect($url);
 	}
 
 	public function handleRegisterPost() {

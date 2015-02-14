@@ -10,6 +10,7 @@ require_once __DIR__.'/classes/autoloader.php';
 Autoloader::init();
 
 //start session
+session_set_cookie_params(0, Config::BASEURL);
 session_start();
 
 //get view

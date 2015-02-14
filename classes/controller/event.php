@@ -44,9 +44,7 @@ class Event extends \Controller {
 	}
 
     public function subscribe($idevent) {
-        $isAuth = $this->isAuth();
-        if (!$isAuth)
-            $this->redirect('auth/login');
+        $isAuth = $this->forceAuth();
 
         try {
             $this->DB->execute('
@@ -65,9 +63,7 @@ class Event extends \Controller {
     }
 
     public function unsubscribe($idevent) {
-        $isAuth = $this->isAuth();
-        if (!$isAuth)
-            $this->redirect('auth/login');
+        $isAuth = $this->forceAuth();
 
         try {
             $this->DB->execute('

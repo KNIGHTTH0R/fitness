@@ -21,4 +21,14 @@ class Controller {
 		return $_SESSION['auth'];
 	}
 
+	public function forceAuth() {
+		$isAuth = $this->isAuth();
+		if (!$isAuth) {
+			$_SESSION['request'] = $_GET['request'];
+            $this->redirect('auth/login');
+			return false;
+        }
+		return $isAuth;
+	}
+
 }
