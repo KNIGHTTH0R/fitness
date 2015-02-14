@@ -19,16 +19,21 @@
 		</div>
 		<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="{Config::BASEURL}">Fitness-Lounge</a>
-				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="{Config::BASEURL}event">Courses</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
-				{if $smarty.session.auth|default:false}
+				{if $smarty.session.auth}
 					<li><a href="{Config::BASEURL}auth/logout">Logout</a></li>
 				{else}
 					<li><a href="{Config::BASEURL}auth/login">Login</a></li>
 				{/if}
 				</ul>
+				{if $smarty.session.auth}
+				<p class="navbar-text navbar-right">
+					Signed in as {$smarty.session.auth.name}
+				</p>
+				{/if}
 			</div>
 		</nav>
 		<div class="container">

@@ -26,7 +26,7 @@ class Auth extends \Controller {
 		}
 
 		$result = $this->DB->execute('
-			SELECT iduser, dtpassword
+			SELECT iduser, dtpassword, dtfirst_name, dtlast_name
 			FROM tblfitness_user
 			WHERE iduser = :username
 			   OR dtemail = :username
@@ -44,6 +44,7 @@ class Auth extends \Controller {
 
 		$_SESSION['auth']['user'] = $result[0]['iduser'];
         $_SESSION['auth']['type'] = $result[0]['dttype'];
+		$_SESSION['auth']['name'] = $result[0]['dtfirst_name'].' '.$result[0]['dtlast_name'];
 		$this->redirect();
 	}
 
