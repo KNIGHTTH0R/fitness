@@ -12,6 +12,7 @@ class View {
 		$this->_smarty->setTemplateDir(Config::ROOT.'/templates');
 		$this->_smarty->setCompileDir(Config::ROOT.'/var/view/templates_c');
 		$this->_smarty->setCacheDir(Config::ROOT.'/var/view/cache');
+		$this->_smarty->error_reporting = E_ALL & ~E_NOTICE;
 	}
 
 	public static function getInstance() {
