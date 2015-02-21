@@ -10,6 +10,10 @@ class Menu extends \Controller {
         $menu['left'][] = array('link', \Config::BASEURL.'event', 'Classes');
 
         if ($isAuth) {
+            if (in_array($isAuth['type'], array('coach', 'admin'))) {
+                $menu['left'][] = array('link', \Config::BASEURL.'eventmanager', 'Class-Manager');
+            }
+
             $menu['right'][] = array('text', 'Signed in as '.$isAuth['name']);
             $menu['right'][] = array('link', \Config::BASEURL.'auth/logout', 'Logout');
         } else {

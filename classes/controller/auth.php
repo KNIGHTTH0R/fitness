@@ -26,7 +26,7 @@ class Auth extends \Controller {
 		}
 
 		$result = $this->DB->execute('
-			SELECT iduser, dtpassword, dtfirst_name, dtlast_name
+			SELECT iduser, dtpassword, dtfirst_name, dtlast_name, dttype
 			FROM tblfitness_user
 			WHERE iduser = :username
 			   OR dtemail = :username
