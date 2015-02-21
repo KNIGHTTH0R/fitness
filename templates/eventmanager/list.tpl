@@ -9,9 +9,9 @@
                     <th>Event</th>
                     <th>Time of day</th>
                     {if !$archive}
-                    <th>Visibility</th>
+                    <th class="text-center">Visibility</th>
                     {/if}
-                    <th>Subscriptions</th>
+                    <th class="text-center">Subscriptions</th>
                     <th></th>
                 </tr>
             </thead>
@@ -43,7 +43,9 @@
                     </td>
                     {/if}
                     <td class="text-center">
-                        <span class="badge">{$event.dtusercount}</span>
+                        <a class="btn btn-default btn-xs" href="{Config::BASEURL}eventmanager/subscriptions/{$event.idevent}">
+                            Manage <span class="badge">{$event.dtusercount}</span>
+                        </a>
                     </td>
                     <td>
                         <a class="btn btn-default btn-xs" href="{Config::BASEURL}eventmanager/copyToNextWeek/{$event.idevent}">

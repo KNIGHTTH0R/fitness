@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">Class - {if $event}Update{else}Create{/if}</div>
     <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="{Config::BASEURL}eventmanager/save/{$event.idevent}">
+        <form class="form-horizontal" method="post" action="{Config::BASEURL}eventmanager/save/{$event.idevent}">
             <div class="form-group">
                 <label for="inputEventType" class="col-sm-2 control-label">Event type</label>
                 <div class="col-sm-10">

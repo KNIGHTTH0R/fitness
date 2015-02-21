@@ -225,4 +225,74 @@ class Eventmanager extends Backend {
         $this->redirect('eventmanager');
     }
 
+    public function subscriptions($idevent) {
+        $result = $this->DB->execute('
+            SELECT iduser, dtlast_name, dtfirst_name
+            FROM tblfitness_user
+            INNER JOIN tblfitness_user2event
+              ON iduser = fiuser
+              AND fievent = :event
+            ORDER BY dtlast_name, dtfirst_name
+        ', array(
+            'event' => $idevent
+        ));
+        $users = $result->fetchAll();
+
+        $result = $this->DB->execute('
+            SELECT iduser, dtlast_name, dtfirst_name
+            FROM tblfitness_user
+            LEFT JOIN tblfitness_user2event
+              ON iduser = fiuser
+              AND fievent = :event
+            WHERE fievent IS NULL
+            ORDER BY dtlast_name, dtfirst_name
+        ', array(
+            'event' => $idevent
+        ));
+        $newusers = $result->fetchAll();
+
+        $this->View->assign(array(
+            'idevent' => $idevent,
+            'users' => $users,
+            'newusers' => $newusers
+        ));
+        return $this->View->fetch('eventmanager/subscriptions.tpl');
+    }
+
+    public function unsubscribe($idevent, $iduser) {
+        try {
+            $this->DB->execute('
+                DELETE
+                FROM tblfitness_user2event
+                WHERE fiuser = :user
+                  AND fievent = :event
+            ', array(
+                'user' => $iduser,
+                'event' => $idevent
+            ));
+        } catch (\Exception $e) {}
+
+        $this->redirect('eventmanager/subscriptions/'.$idevent);
+    }
+
+    public function subscribe($idevent) {
+        if (empty($_POST['fiuser']))
+            $this->redirect('eventmanager/subscriptions/'.$idevent);
+
+        try {
+            $this->DB->execute('
+                INSERT
+                INTO tblfitness_user2event
+                  (fiuser, fievent)
+                VALUES
+                  (:user, :event)
+            ', array(
+                'user' => $_POST['fiuser'],
+                'event' => $idevent
+            ));
+        } catch (\Exception $e) {}
+
+        $this->redirect('eventmanager/subscriptions/'.$idevent);
+    }
+
 }
