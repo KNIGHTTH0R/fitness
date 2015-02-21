@@ -3,7 +3,11 @@
 namespace Controller;
 class Eventmanager extends Backend {
 
+    protected $types = array('coach', 'admin');
+
     public function before() {
+        parent::before();
+
         $this->View->assign('subMenu', array(
             'left' => array(
                 array('link', \Config::BASEURL.'eventmanager', 'List'),
