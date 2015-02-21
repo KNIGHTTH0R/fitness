@@ -20,6 +20,8 @@ class Event extends \Controller {
                ON idevent = fievent
               AND fiuser = :user
             WHERE dtdate >= NOW()
+              AND dtarchive = 0
+              AND dtvisible = 1
             GROUP BY idevent
             ORDER BY dtdate ASC
         ', array(

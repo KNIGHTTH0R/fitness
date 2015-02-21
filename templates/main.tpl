@@ -18,8 +18,10 @@
 			<img id="Logo" src="{Config::BASEURL}files/image/logo.jpg" />
 		</div>
 		{$menu}
+
 		<div class="container">
 			{$message}
+			{include file='sub-menu.tpl'}
 			{$content}
 		</div>
 	</body>
