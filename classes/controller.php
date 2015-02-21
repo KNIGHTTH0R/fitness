@@ -31,4 +31,11 @@ class Controller {
 		return $isAuth;
 	}
 
+	public function getUserType() {
+		$isAuth = $this->isAuth();
+		if (!$isAuth)
+			return false;
+		return $isAuth['type'];
+	}
+
 }
