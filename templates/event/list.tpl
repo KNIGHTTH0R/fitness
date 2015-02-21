@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Courses</div>
+    <div class="panel-heading">Classes</div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>

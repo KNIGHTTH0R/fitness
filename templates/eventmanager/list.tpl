@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Courses</div>
+    <div class="panel-heading">Classes</div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -19,6 +19,9 @@
                 {foreach $events as $event}
                 <tr{if $event.dtsubscribed} class="success"{/if}>
                     <td>
+                        <a class="btn btn-warning btn-xs" href="{Config::BASEURL}eventmanager/edit/{$event.idevent}">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
                         <a class="btn btn-danger btn-xs" href="{Config::BASEURL}eventmanager/delete/{$event.idevent}" onclick="return confirm('Are you sure?');">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>

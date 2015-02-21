@@ -59,6 +59,91 @@ class Eventmanager extends Backend {
         return $this->listing(true);
     }
 
+    public function edit($idevent = null) {
+        if (isset($_SESSION['event_edit'])) {
+            $event = $_SESSION['event_edit'];
+            unset($_SESSION['event_edit']);
+        } else if ($idevent) {
+            $result = $this->DB->execute('
+                SELECT *
+                FROM tblfitness_event
+                WHERE idevent = :event
+            ', array(
+                'event' => $idevent
+            ));
+            $events = $result->fetchAll();
+            if (isset($events[0])) {
+                $event = $events[0];
+                $time = strtotime($event['dtdate']);
+                $event['dttime'] = date('H:i', $time);
+                $event['dtdate'] = date('d/m/Y', $time);
+            } else {
+                $event = false;
+            }
+        } else {
+            $event = false;
+        }
+
+        $result = $this->DB->execute('
+            SELECT idevent_type, dtname
+            FROM tblfitness_event_type
+            ORDER BY dtname
+        ', array(
+            'event' => $idevent
+        ));
+        $types = $result->fetchAll();
+
+        $this->View->assign(array(
+            'event' => $event,
+            'types' => $types
+        ));
+        return $this->View->fetch('eventmanager/edit.tpl');
+    }
+
+    public function save($idevent = null) {
+        if (empty($_POST))
+            $this->redirect('eventmanager');
+
+        if (empty($_POST['fievent_type'])
+                || empty($_POST['dtdate'])
+                || empty($_POST['dttime'])
+                || empty($_POST['dtduration'])) {
+            \Message::add('You need to fill in all fields');
+            $_SESSION['event_edit'] = $_POST;
+            $this->redirect('eventmanager/edit/'.$idevent);
+        }
+
+        $date = implode('-', array_reverse(explode('/', $_POST['dtdate']))).' '.$_POST['dttime'].':00';
+
+        if ($idevent) {
+            $this->DB->execute('
+                UPDATE tblfitness_event
+                SET fievent_type = :event_type,
+                    dtdate = :date,
+                    dtduration = :duration
+                WHERE idevent = :event
+            ', array(
+                'event' => $idevent,
+                'date' => $date,
+                'event_type' => $_POST['fievent_type'],
+                'duration' => $_POST['dtduration']
+            ));
+        } else {
+            $this->DB->execute('
+                INSERT
+                INTO tblfitness_event
+                  (fievent_type, dtdate, dtduration)
+                VALUES
+                  (:event_type, :date, :duration)
+            ', array(
+                'date' => $date,
+                'event_type' => $_POST['fievent_type'],
+                'duration' => $_POST['dtduration']
+            ));
+        }
+        $this->redirect('eventmanager');
+    }
+
     public function copyToNextWeek($idevent) {
         $this->DB->execute('
             INSERT INTO tblfitness_event
