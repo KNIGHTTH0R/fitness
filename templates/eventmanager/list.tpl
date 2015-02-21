@@ -4,6 +4,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Date</th>
                     <th>Event</th>
                     <th>Time of day</th>
@@ -17,6 +18,11 @@
             <tbody>
                 {foreach $events as $event}
                 <tr{if $event.dtsubscribed} class="success"{/if}>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href="{Config::BASEURL}eventmanager/delete/{$event.idevent}" onclick="return confirm('Are you sure?');">
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </a>
+                    </td>
                     <td>{$event.date} - {$event.day}</td>
                     <td>{$event.dtname}</td>
                     <td>{$event.from} - {$event.to} ({$event.duration} hours)</td>

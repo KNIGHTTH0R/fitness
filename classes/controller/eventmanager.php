@@ -118,4 +118,22 @@ class Eventmanager extends Backend {
         $this->redirect('eventmanager');
     }
 
+    public function delete($idevent) {
+        $this->DB->execute('
+            DELETE
+            FROM tblfitness_user2event
+            WHERE fievent = :event
+        ', array(
+            'event' => $idevent
+        ));
+        $this->DB->execute('
+            DELETE
+            FROM tblfitness_event
+            WHERE idevent = :event
+        ', array(
+            'event' => $idevent
+        ));
+        $this->redirect('eventmanager');
+    }
+
 }
