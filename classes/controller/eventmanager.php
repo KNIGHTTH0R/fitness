@@ -117,6 +117,24 @@ class Eventmanager extends Backend {
             $this->redirect('eventmanager/edit/'.$idevent);
         }
 
+        if (!preg_match('/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/', $_POST['dtdate'])) {
+            \Message::add('Invalid date format');
+            $_SESSION['event_edit'] = $_POST;
+            $this->redirect('eventmanager/edit/'.$idevent);
+        }
+
+        if (!preg_match('/^[0-9]{2}:[0-9]{2}$/', $_POST['dttime'])) {
+            \Message::add('Invalid time format');
+            $_SESSION['event_edit'] = $_POST;
+            $this->redirect('eventmanager/edit/'.$idevent);
+        }
+
+        if (!preg_match('/^[0-9]+$/', $_POST['dtduration'])) {
+            \Message::add('Invalid duration format');
+            $_SESSION['event_edit'] = $_POST;
+            $this->redirect('eventmanager/edit/'.$idevent);
+        }
+
         $date = implode('-', array_reverse(explode('/', $_POST['dtdate']))).' '.$_POST['dttime'].':00';
 
         if ($idevent) {
