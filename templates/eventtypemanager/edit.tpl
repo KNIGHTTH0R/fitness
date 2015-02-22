@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">{if $event}Update{else}Create{/if}</button>
+                    <button type="submit" class="btn btn-default">{if $type}Update{else}Create{/if}</button>
                 </div>
             </div>
         </form>

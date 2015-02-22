@@ -37,6 +37,7 @@ class Eventtypemanager extends Backend {
     public function edit($idevent_type = null) {
         if (isset($_SESSION['eventtype_edit'])) {
             $type = $_SESSION['eventtype_edit'];
+            $type['idevent_type'] = $idevent_type;
             unset($_SESSION['eventtype_edit']);
         } else if ($idevent_type) {
             $result = $this->DB->execute('

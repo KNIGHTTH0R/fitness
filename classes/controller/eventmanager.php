@@ -63,6 +63,7 @@ class Eventmanager extends Backend {
     public function edit($idevent = null) {
         if (isset($_SESSION['event_edit'])) {
             $event = $_SESSION['event_edit'];
+            $event['idevent'] = $idevent;
             unset($_SESSION['event_edit']);
         } else if ($idevent) {
             $result = $this->DB->execute('
