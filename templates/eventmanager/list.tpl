@@ -1,11 +1,15 @@
+{foreach $weeks as $week}
 <div class="panel panel-default">
-    <div class="panel-heading">Classes</div>
+    <div class="panel-heading">Week: {$week.label}</div>
     <div class="table-responsive">
         <table class="table table-striped">
+            {foreach $week.events as $date => $events}
             <thead>
                 <tr>
+                    <th colspan="{if $archive}5{else}6{/if}">{$date}</th>
+                </tr>
+                <tr>
                     <th></th>
-                    <th>Date</th>
                     <th>Event</th>
                     <th>Time of day</th>
                     {if !$archive}
@@ -26,7 +30,6 @@
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>
                     </td>
-                    <td>{$event.date} - {$event.day}</td>
                     <td>{$event.dtname}</td>
                     <td>{$event.from} - {$event.to} ({$event.duration} hours)</td>
                     {if !$archive}
@@ -64,6 +67,8 @@
                 </tr>
                 {/foreach}
             </tbody>
+            {/foreach}
         </table>
     </div>
 </div>
+{/foreach}

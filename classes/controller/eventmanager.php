@@ -39,19 +39,30 @@ class Eventmanager extends Backend {
         ));
         $events = $result->fetchAll();
 
-        //do some formatting
-        foreach ($events as &$event) {
+        //group by week & do some formatting
+        $weeks = array();
+        while ($event = array_shift($events)) {
             $time = strtotime($event['dtdate']);
-            $event['day']   = strftime('%A', $time);
-            $event['date']  = date('d/m/Y', $time);
+
+            $date = strftime('%A', $time).' - '.date('d/m/Y', $time);
             $event['from']  = date('H:i', $time);
             $event['to']    = date('H:i', $time + ($event['dtduration'] * 60));
             $event['duration'] = round($event['dtduration'] / 60, 1);
+
+            $week_number = date('W', $time);
+            if (!isset($weeks[$week_number])) {
+                $weekday = date('w', $time);
+                $monday = $time - (($weekday-1) * 60 * 60 * 24);
+                $sunday = $monday + (6 * 60 * 60 * 24);
+                $weeks[$week_number]['label'] = date('d/m/Y', $monday).' - '.date('d/m/Y', $sunday);
+            }
+
+            $weeks[$week_number]['events'][$date][] = $event;
         }
 
         $this->View->assign(array(
             'archive' => $archive,
-            'events' => $events
+            'weeks' => $weeks
         ));
         return $this->View->fetch('eventmanager/list.tpl');
 	}
