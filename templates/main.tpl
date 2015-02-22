@@ -6,12 +6,11 @@
 		<title>{$title|default:''}</title>
 		<link rel="shortcut icon" href="{Config::BASEURL}files/image/favicon.png" type="image/png" />
 		<link rel="icon" href="{Config::BASEURL}files/image/favicon.png" type="image/png" />
-		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}js/dijit/themes/tundra/tundra.css" />
-		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/bootstrap/bootstrap.css" />
-		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/bootstrap/bootstrap-theme.css" />
+		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/bootstrap/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/bootstrap/bootstrap-theme.min.css" />
 		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/main.css" />
-		<script src="{Config::BASEURL}js/dojo/dojo.js" data-dojo-config="async: true"></script>
-		<script src="{Config::BASEURL}js/main.js"></script>
+		<script src="{Config::BASEURL}js/jquery/jquery-2.1.3.min.js"></script>
+		<script src="{Config::BASEURL}js/bootstrap/bootstrap.min.js"></script>
 	</head>
 	<body class="tundra">
 		<div class="container">
