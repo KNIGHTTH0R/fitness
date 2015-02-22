@@ -28,6 +28,12 @@ class Usermanager extends Backend {
         ');
         $users = $result->fetchAll();
 
+        foreach ($users as &$user) {
+            if (!empty($user['dtbirthdate'])) {
+                $user['dtbirthdate'] = implode('/', array_reverse(explode('-', $user['dtbirthdate'])));
+            }
+        }
+
         $this->View->assign(array(
             'users' => $users
         ));
