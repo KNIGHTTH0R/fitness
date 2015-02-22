@@ -20,8 +20,8 @@
 		{$menu}
 
 		<div class="container">
-			{$message}
 			{include file='sub-menu.tpl'}
+			{$message}
 			{$content}
 		</div>
 	</body>

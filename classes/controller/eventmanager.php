@@ -24,9 +24,6 @@ class Eventmanager extends Backend {
     }
 
 	public function listing($archive = false) {
-        $isAuth = $this->isAuth();
-        $user = $isAuth? $isAuth['user'] : NULL;
-
         $result = $this->DB->execute('
             SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtvisible, dtarchive, COUNT(fiuser) AS dtusercount
             FROM tblfitness_event
