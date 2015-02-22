@@ -131,7 +131,7 @@ class Usermanager extends Backend {
                 WHERE iduser = :user
             ', array(
                 'last_name' => $_POST['dtlast_name'],
-                'first_name' => $_POST['dtlast_name'],
+                'first_name' => $_POST['dtfirst_name'],
                 'type' => $_POST['dttype'],
                 'email' => $_POST['dtemail'],
                 'birthdate' => $birthdate,
@@ -156,7 +156,7 @@ class Usermanager extends Backend {
                   (:last_name, :first_name, :password, :type, :email, :birthdate)
             ', array(
                 'last_name' => $_POST['dtlast_name'],
-                'first_name' => $_POST['dtlast_name'],
+                'first_name' => $_POST['dtfirst_name'],
                 'type' => $_POST['dttype'],
                 'email' => $_POST['dtemail'],
                 'birthdate' => $birthdate,

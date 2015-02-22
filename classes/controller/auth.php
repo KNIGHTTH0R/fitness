@@ -64,31 +64,49 @@ class Auth extends \Controller {
 	            || empty($_POST['register']['eMail'])
 	            || empty($_POST['register']['password'])
 	            || empty($_POST['register']['password2'])) {
-			\Message::add('Fill in all fields');
+			\Message::add('Fill in all fields marked with an *');
 			return;
 		}
 
-        if ($_POST['password'] != $_POST['password2']) {
-			\Message::add('Passwords do not match');
+		if (!filter_var($_POST['register']['eMail'], FILTER_VALIDATE_EMAIL)) {
+            \Message::add('Invalid email format');
+            return;
+        }
+
+        if ($_POST['register']['password'] != $_POST['register']['password2']) {
+			\Message::add('The passwords do not match');
 			return;
 		}
 
+		if (strlen($_POST['register']['password']) < 6) {
+			\Message::add('The password is to short. Minimum length is 6');
+			return;
+		}
+
+		if (!empty($_POST['register']['birthdate']) && !preg_match('/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/', $_POST['register']['birthdate'])) {
+            \Message::add('Invalid birthdate format');
+            return;
+        }
+
+		$birthdate = $_POST['register']['birthdate']? implode('-', array_reverse(explode('/', $_POST['register']['birthdate']))) : NULL;
 
         try {
 
             $result = $this->DB->execute('
 				INSERT
 				INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dtemail)
+                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dtbirthdate)
                 VALUES
-                  (:last_name, :first_name, :password, :email)
+                  (:last_name, :first_name, :password, :email, :birthdate)
 			', array(
-				'last_name'  => $_POST['lastName'],
-                'first_name' => $_POST['firstName'],
-                'password'   => password_hash($_POST['password'], PASSWORD_DEFAULT),
-                'email'      => $_POST['eMail']
+				'last_name'  => $_POST['register']['lastName'],
+                'first_name' => $_POST['register']['firstName'],
+                'password'   => password_hash($_POST['register']['password'], PASSWORD_DEFAULT),
+                'email'      => $_POST['register']['eMail'],
+				'birthdate'  => $birthdate
 			));
 
+			\Message::add('Registration successful. You can now login', 'success');
             $this->redirect('auth/login');
 
         } catch (\Exception $e) {
@@ -105,6 +123,7 @@ class Auth extends \Controller {
             }
 
         }
+		
 	}
 
 }
