@@ -9,6 +9,7 @@
                     <th>Name</th>
                     <th>Type</th>
                     <th>Email</th>
+                    <th>Telephone</th>
                     <th>Birthdate</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                     <td>{$user.dtlast_name} {$user.dtfirst_name}</td>
                     <td>{$user.dttype}</td>
                     <td>{$user.dtemail}</td>
+                    <td>{$user.dttel}</td>
                     <td>{$user.dtbirthdate}</td>
                 </tr>
                 {/foreach}

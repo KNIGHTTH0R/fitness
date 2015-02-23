@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">User - {if $user}Update{else}Create{/if}</div>
+    <div class="panel-heading">User - {if $user.iduser}Update{else}Create{/if}</div>
     <div class="panel-body">
         <form class="form-horizontal" method="post" action="{Config::BASEURL}usermanager/save/{$user.iduser}">
             <div class="form-group">
@@ -21,6 +21,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="inputTel" class="col-sm-2 control-label">Telephone *</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputTel" name="dttel" value="{$user.dttel}" />
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="inputBirthdate" class="col-sm-2 control-label">Birthdate</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputBirthdate" name="dtbirthdate" placeholder="dd/mm/yyyy" value="{$user.dtbirthdate}" />
@@ -37,7 +43,7 @@
                     </select>
                 </div>
             </div>
-            {if $user}
+            {if $user.iduser}
             <hr />
             <p>
                 Only fill in password if you want to change it.
@@ -57,7 +63,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">{if $user}Update{else}Create{/if}</button>
+                    <button type="submit" class="btn btn-default">{if $user.iduser}Update{else}Create{/if}</button>
                 </div>
             </div>
         </form>

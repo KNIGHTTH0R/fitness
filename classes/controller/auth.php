@@ -62,6 +62,7 @@ class Auth extends \Controller {
         if (empty($_POST['register']['lastName'])
 	            || empty($_POST['register']['firstName'])
 	            || empty($_POST['register']['eMail'])
+				|| empty($_POST['register']['tel'])
 	            || empty($_POST['register']['password'])
 	            || empty($_POST['register']['password2'])) {
 			\Message::add('Fill in all fields marked with an *');
@@ -95,14 +96,15 @@ class Auth extends \Controller {
             $result = $this->DB->execute('
 				INSERT
 				INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dtbirthdate)
+                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dttel, dtbirthdate)
                 VALUES
-                  (:last_name, :first_name, :password, :email, :birthdate)
+                  (:last_name, :first_name, :password, :email, :tel, :birthdate)
 			', array(
 				'last_name'  => $_POST['register']['lastName'],
                 'first_name' => $_POST['register']['firstName'],
                 'password'   => password_hash($_POST['register']['password'], PASSWORD_DEFAULT),
                 'email'      => $_POST['register']['eMail'],
+				'tel'      	 => $_POST['register']['tel'],
 				'birthdate'  => $birthdate
 			));
 
@@ -123,7 +125,7 @@ class Auth extends \Controller {
             }
 
         }
-		
+
 	}
 
 }

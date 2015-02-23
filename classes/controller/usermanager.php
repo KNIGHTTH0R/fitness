@@ -22,7 +22,7 @@ class Usermanager extends Backend {
 
 	public function listing() {
         $result = $this->DB->execute('
-            SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dtbirthdate
+            SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dttel, dtbirthdate
             FROM tblfitness_user
             ORDER BY dtlast_name ASC, dtfirst_name ASC
         ');
@@ -86,7 +86,8 @@ class Usermanager extends Backend {
         if (empty($_POST['dtlast_name'])
                 || empty($_POST['dtfirst_name'])
                 || empty($_POST['dttype'])
-                || empty($_POST['dtemail'])) {
+                || empty($_POST['dtemail'])
+                || empty($_POST['dttel'])) {
             \Message::add('You need to fill in all fields marked with an *');
             $_SESSION['user_edit'] = $_POST;
             $this->redirect('usermanager/edit/'.$iduser);
@@ -133,6 +134,7 @@ class Usermanager extends Backend {
                     dtfirst_name = :first_name,
                     dttype = :type,
                     dtemail = :email,
+                    dttel = :tel,
                     dtbirthdate = :birthdate
                 WHERE iduser = :user
             ', array(
@@ -140,6 +142,7 @@ class Usermanager extends Backend {
                 'first_name' => $_POST['dtfirst_name'],
                 'type' => $_POST['dttype'],
                 'email' => $_POST['dtemail'],
+                'tel' => $_POST['dttel'],
                 'birthdate' => $birthdate,
                 'user' => $iduser
             ));
@@ -157,14 +160,15 @@ class Usermanager extends Backend {
             $this->DB->execute('
                 INSERT
                 INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dttype, dtemail, dtbirthdate)
+                  (dtlast_name, dtfirst_name, dtpassword, dttype, dtemail, dttel, dtbirthdate)
                 VALUES
-                  (:last_name, :first_name, :password, :type, :email, :birthdate)
+                  (:last_name, :first_name, :password, :type, :email, :tel, :birthdate)
             ', array(
                 'last_name' => $_POST['dtlast_name'],
                 'first_name' => $_POST['dtfirst_name'],
                 'type' => $_POST['dttype'],
                 'email' => $_POST['dtemail'],
+                'tel' => $_POST['dttel'],
                 'birthdate' => $birthdate,
                 'password' => password_hash($_POST['dtpassword'], PASSWORD_DEFAULT)
             ));

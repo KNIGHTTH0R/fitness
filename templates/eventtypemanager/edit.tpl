@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading">Classtype - {if $type}Update{else}Create{/if}</div>
+    <div class="panel-heading">Classtype - {if $type.idevent_type}Update{else}Create{/if}</div>
     <div class="panel-body">
         <form class="form-horizontal" method="post" action="{Config::BASEURL}eventtypemanager/save/{$type.idevent_type}">
             <div class="form-group">
@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">{if $type}Update{else}Create{/if}</button>
+                    <button type="submit" class="btn btn-default">{if $type.idevent_type}Update{else}Create{/if}</button>
                 </div>
             </div>
         </form>

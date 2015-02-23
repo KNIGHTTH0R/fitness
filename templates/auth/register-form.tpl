@@ -18,6 +18,12 @@
 	    </div>
     </div>
     <div class="form-group">
+		<label for="register_tel" class="col-sm-4 control-label">Telephone *</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="register[tel]" value="{$smarty.post.register.tel}" id="register_tel" />
+	    </div>
+    </div>
+    <div class="form-group">
 		<label for="register_birthdate" class="col-sm-4 control-label">Birthdate</label>
         <div class="col-sm-8">
             <input class="form-control" type="text" name="register[birthdate]" placeholder="dd/mm/yyyy" value="{$smarty.post.register.birthdate}" id="register_birthdate" />
