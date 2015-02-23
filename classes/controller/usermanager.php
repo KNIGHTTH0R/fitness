@@ -185,8 +185,8 @@ class Usermanager extends Backend {
             FROM tblfitness_user
             WHERE iduser = :user
         ', array(
-            'event' => $idevent
+            'user' => $iduser
         ));
-        $this->redirect('eventmanager');
+        $this->redirect('usermanager');
     }
 }
