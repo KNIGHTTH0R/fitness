@@ -35,11 +35,32 @@ class Auth extends \Controller {
 			'username' => $_POST['login']['username']
 		));
         $result = $result->fetchAll();
-		if (!$result
-                || !isset($result[0])
-				|| !password_verify($_POST['login']['password'], $result[0]['dtpassword'])) {
+
+		if (!$result || !isset($result[0])) {
 			\Message::add('Invalid login');
 			return;
+		}
+
+		if (preg_match('/^md5:(.*)$/', $result[0]['dtpassword'], $matches)) {
+			// old md5 passwords
+			if (md5($_POST['login']['password']) != $matches[1]) {
+				\Message::add('Invalid login');
+				return;
+			}
+			// update to new system
+			$this->DB->execute('
+				UPDATE tblfitness_user
+				SET dtpassword = :password
+				WHERE iduser = :user
+			', array(
+				'password' => password_hash($_POST['login']['password'], PASSWORD_DEFAULT),
+				'user' => $result[0]['iduser']
+			));
+		} else {
+			if (!password_verify($_POST['login']['password'], $result[0]['dtpassword'])) {
+				\Message::add('Invalid login');
+				return;
+			}
 		}
 
 		$_SESSION['auth']['user'] = $result[0]['iduser'];
