@@ -13,7 +13,7 @@
                 {foreach $events as $event}
                 <tr{if $event.dtsubscribed} class="success"{/if}>
                     <td>{$event.dtname}</td>
-                    <td>{$event.from} - {$event.to}<span class="hidden-xs"> ({$event.duration} hours)</span></td>
+                    <td>{$event.from} - {$event.to}</td>
                     <td>
                     {if $event.dtsubscribed}
                         <a class="btn btn-danger btn-xs" href="{Config::BASEURL}event/unsubscribe/{$event.idevent}">Unsubscribe</a>

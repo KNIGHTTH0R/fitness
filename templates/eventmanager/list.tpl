@@ -31,7 +31,7 @@
                         </a>
                     </td>
                     <td>{$event.dtname}</td>
-                    <td>{$event.from} - {$event.to} ({$event.duration} hours)</td>
+                    <td>{$event.from} - {$event.to}</td>
                     {if !$archive}
                     <td class="text-center {if $event.dtvisible}success{else}danger{/if}">
                         {if $event.dtvisible}

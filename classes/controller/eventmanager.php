@@ -47,7 +47,6 @@ class Eventmanager extends Backend {
             $date = strftime('%A', $time).' - '.date('d/m/Y', $time);
             $event['from']  = date('H:i', $time);
             $event['to']    = date('H:i', $time + ($event['dtduration'] * 60));
-            $event['duration'] = round($event['dtduration'] / 60, 1);
 
             $week_number = date('W', $time);
             if (!isset($weeks[$week_number])) {

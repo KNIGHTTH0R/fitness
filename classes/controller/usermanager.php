@@ -22,7 +22,7 @@ class Usermanager extends Backend {
 
 	public function listing() {
         $result = $this->DB->execute('
-            SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dttel, dtbirthdate
+            SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dttel, dtbirthdate, dtenabled
             FROM tblfitness_user
             ORDER BY dtlast_name ASC, dtfirst_name ASC
         ');
@@ -187,6 +187,28 @@ class Usermanager extends Backend {
         $this->DB->execute('
             DELETE
             FROM tblfitness_user
+            WHERE iduser = :user
+        ', array(
+            'user' => $iduser
+        ));
+        $this->redirect('usermanager');
+    }
+
+    public function enable($iduser) {
+        $this->DB->execute('
+            UPDATE tblfitness_user
+            SET dtenabled = 1
+            WHERE iduser = :user
+        ', array(
+            'user' => $iduser
+        ));
+        $this->redirect('usermanager');
+    }
+
+    public function disable($iduser) {
+        $this->DB->execute('
+            UPDATE tblfitness_user
+            SET dtenabled = 0
             WHERE iduser = :user
         ', array(
             'user' => $iduser

@@ -11,6 +11,9 @@ class Event extends \Controller {
         $isAuth = $this->isAuth();
         $user = $isAuth? $isAuth['user'] : NULL;
 
+        if ($isAuth && !$isAuth['enabled'])
+            \Message::add('Your account is not yet enabled. You can not subscribe to the classes.');
+
         $result = $this->DB->execute('
             SELECT idevent, dtname, dtdescription, dtdate, dtduration, COUNT(fiuser) AS dtsubscribed
             FROM tblfitness_event
@@ -37,7 +40,6 @@ class Event extends \Controller {
             $date = strftime('%A', $time).' - '.date('d/m/Y', $time);
             $event['from']  = date('H:i', $time);
             $event['to']    = date('H:i', $time + ($event['dtduration'] * 60));
-            $event['duration'] = round($event['dtduration'] / 60, 1);
 
             $week_number = date('W', $time);
             if (!isset($weeks[$week_number])) {
@@ -58,6 +60,8 @@ class Event extends \Controller {
 
     public function subscribe($idevent) {
         $isAuth = $this->forceAuth();
+        if (!$isAuth['enabled'])
+            $this->redirect('event');
 
         try {
             $this->DB->execute('
@@ -77,6 +81,8 @@ class Event extends \Controller {
 
     public function unsubscribe($idevent) {
         $isAuth = $this->forceAuth();
+        if (!$isAuth['enabled'])
+            $this->redirect('event');
 
         try {
             $this->DB->execute('

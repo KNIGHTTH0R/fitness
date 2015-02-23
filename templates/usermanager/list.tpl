@@ -11,6 +11,7 @@
                     <th>Email</th>
                     <th>Telephone</th>
                     <th>Birthdate</th>
+                    <th class="text-center">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,17 @@
                     <td>{$user.dtemail}</td>
                     <td>{$user.dttel}</td>
                     <td>{$user.dtbirthdate}</td>
+                    <td class="text-center {if $user.dtenabled}success{else}danger{/if}">
+                        {if $user.dtenabled}
+                        <a class="btn btn-default btn-xs" href="{Config::BASEURL}usermanager/disable/{$user.iduser}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Disable
+                        </a>
+                        {else}
+                        <a class="btn btn-default btn-xs" href="{Config::BASEURL}usermanager/enable/{$user.iduser}">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enable
+                        </a>
+                        {/if}
+                    </td>
                 </tr>
                 {/foreach}
             </tbody>
