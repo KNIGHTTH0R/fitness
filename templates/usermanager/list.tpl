@@ -8,7 +8,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Type</th>
-                    <th>Email</th>
+                    <th>E-Mail</th>
                     <th>Telephone</th>
                     <th>Birthdate</th>
                     <th class="text-center">Status</th>
@@ -28,8 +28,8 @@
                     <td>{$user.iduser}</td>
                     <td>{$user.dtlast_name} {$user.dtfirst_name}</td>
                     <td>{$user.dttype}</td>
-                    <td>{$user.dtemail}</td>
-                    <td>{$user.dttel}</td>
+                    <td>{if $user.dtemail}<a href="mailto:{$user.dtemail}">{$user.dtemail}</a>{/if}</td>
+                    <td>{if $user.dttel}<a href="tel:{$user.dttel}">{$user.dttel}</a>{/if}</td>
                     <td>{$user.dtbirthdate}</td>
                     <td class="text-center {if $user.dtenabled}success{else}danger{/if}">
                         {if $user.dtenabled}

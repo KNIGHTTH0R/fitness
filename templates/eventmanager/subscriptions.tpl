@@ -7,6 +7,8 @@
                     <tr>
                         <th></th>
                         <th>Name</th>
+                        <th>E-Mail</th>
+                        <th>Telephone</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,7 +19,7 @@
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>
                         </td>
-                        <td>
+                        <td colspan="3">
                             <select name="fiuser" class="form-control input-sm">
                                 <option></option>
                                 {foreach $newusers as $user}
@@ -35,6 +37,8 @@
                             </a>
                         </td>
                         <td>{$user.dtlast_name} {$user.dtfirst_name}</td>
+                        <td>{if $user.dtemail}<a href="mailto:{$user.dtemail}">{$user.dtemail}</a>{/if}</td>
+                        <td>{if $user.dttel}<a href="tel:{$user.dttel}">{$user.dttel}</a>{/if}</td>
                     </tr>
                     {/foreach}
                 </tbody>

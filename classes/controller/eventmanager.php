@@ -253,7 +253,7 @@ class Eventmanager extends Backend {
 
     public function subscriptions($idevent) {
         $result = $this->DB->execute('
-            SELECT iduser, dtlast_name, dtfirst_name
+            SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel
             FROM tblfitness_user
             INNER JOIN tblfitness_user2event
               ON iduser = fiuser

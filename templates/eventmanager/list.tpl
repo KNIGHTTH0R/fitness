@@ -10,7 +10,7 @@
                 </tr>
                 <tr>
                     <th></th>
-                    <th>Event</th>
+                    <th>Class</th>
                     <th>Time of day</th>
                     {if !$archive}
                     <th class="text-center">Visibility</th>
