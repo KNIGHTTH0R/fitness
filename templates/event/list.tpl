@@ -6,7 +6,7 @@
             {foreach $week.events as $date => $events}
             <thead>
                 <tr>
-                    <th colspan="3">{$date}</th>
+                    <th colspan="4">{$date}</th>
                 </tr>
             </thead>
             <tbody>
@@ -14,6 +14,9 @@
                 <tr{if $event.dtsubscribed} class="success"{/if}>
                     <td>{$event.dtname}</td>
                     <td>{$event.from} - {$event.to}</td>
+                    <td>
+                        <span class="badge">{$event.dtcount}</span>
+                    </td>
                     <td>
                     {if $event.dtsubscribed}
                         <a class="btn btn-danger btn-xs" href="{Config::BASEURL}event/unsubscribe/{$event.idevent}">Unsubscribe</a>
