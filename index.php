@@ -9,6 +9,9 @@ ini_set('display_errors', Config::DEBUG? 1 : 0);
 require_once __DIR__.'/classes/autoloader.php';
 Autoloader::init();
 
+//init composer autoloader
+require_once __DIR__.'/vendor/autoload.php';
+
 //start session
 session_set_cookie_params(0, Config::BASEURL);
 session_start();
