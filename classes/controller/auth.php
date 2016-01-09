@@ -131,10 +131,15 @@ class Auth extends \Controller {
 			));
 
 			\Message::add('Registration successful. You can now login', 'success');
+
+			\Mail::get('admin:user:registration')
+				->setValues($_POST['register'])
+				->send(\Config::MAIL_ADMIN);
+
             $this->redirect('auth/login');
 
         } catch (\Exception $e) {
-
+			throw $e;
             switch ($e->getCode()) {
 
                 case '23000':

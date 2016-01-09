@@ -14,4 +14,9 @@ class Config {
 	const DB_NAME	= 'dbfitness';
 	const DB_DEBUG	= false;
 
+	//mail
+    const MAIL_FROM      = 'mail@example.com';
+    const MAIL_FROM_NAME = 'Fitness';
+    const MAIL_ADMIN     = 'admin@example.com';
+
 }
