@@ -31,6 +31,14 @@ class Mail
         $content = $this->replaceValues($mail['dtcontent'], $this->values);
 
         $mailer = new \PHPMailer();
+        $mailer->isSMTP();
+        $mailer->Host = \Config::SMTP_HOST;
+        $mailer->SMTPAuth = true;
+        $mailer->Username = \Config::SMTP_USER;
+        $mailer->Password = \Config::SMTP_PASS;
+        $mailer->SMTPSecure = \Config::SMTP_SECURE;  
+        $mailer->Port = \Config::SMTP_PORT;
+
         $mailer->setFrom(\Config::MAIL_FROM, \Config::MAIL_FROM_NAME);
         $mailer->addAddress($to);
         $mailer->isHTML(true);

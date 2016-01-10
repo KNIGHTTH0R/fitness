@@ -14,6 +14,13 @@ class Config {
 	const DB_NAME	= 'dbfitness';
 	const DB_DEBUG	= false;
 
+	//SMTP
+    const SMTP_HOST = 'mail.example.com';
+    const SMTP_USER = 'user';
+    const SMTP_PASS = 'pass';
+    const SMTP_SECURE = false;
+    const SMTP_PORT = 25;
+
 	//mail
     const MAIL_FROM      = 'mail@example.com';
     const MAIL_FROM_NAME = 'Fitness';
