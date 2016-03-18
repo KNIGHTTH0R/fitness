@@ -21,11 +21,28 @@ class Usermanager extends Backend {
     }
 
 	public function listing() {
+        return $this->View->fetch('usermanager/list.tpl');
+    }
+
+    public function listingRows() {
+        if (empty($_POST['search'])) {
+            $searchString = '%';
+        } else {
+            $searchString = '%'.$_POST['search'].'%';
+        }
         $result = $this->DB->execute('
             SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dttel, dtbirthdate, dtenabled
             FROM tblfitness_user
+            WHERE iduser LIKE :searchString
+               OR dtlast_name LIKE :searchString
+               OR dtfirst_name LIKE :searchString
+               OR dtemail LIKE :searchString
+               OR dttel LIKE :searchString
             ORDER BY dtlast_name ASC, dtfirst_name ASC
-        ');
+            LIMIT 50
+        ', array(
+            'searchString' => $searchString
+        ));
         $users = $result->fetchAll();
 
         foreach ($users as &$user) {
@@ -37,7 +54,8 @@ class Usermanager extends Backend {
         $this->View->assign(array(
             'users' => $users
         ));
-        return $this->View->fetch('usermanager/list.tpl');
+        echo $this->View->fetch('usermanager/listRows.tpl');
+        exit;
     }
 
     public function edit($iduser = null) {

@@ -11,6 +11,16 @@
 		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/main.css" />
 		<script src="{Config::BASEURL}js/jquery/jquery-2.1.3.min.js"></script>
 		<script src="{Config::BASEURL}js/bootstrap/bootstrap.min.js"></script>
+		<script>
+			var dojoConfig = {
+			    isDebug: {if {Config::DEBUG}}true{else}false{/if},
+			    async: true,
+			    app: {
+			        baseUri: '{Config::BASEURL}'
+			    }
+			};
+		</script>
+		<script src="{Config::BASEURL}js/dojo/dojo.js"></script>
 	</head>
 	<body class="tundra">
 		<div class="container">
