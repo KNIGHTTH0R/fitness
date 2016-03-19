@@ -21,13 +21,17 @@ class Usermanager extends Backend {
     }
 
 	public function listing() {
-        return $this->View->fetch('usermanager/list.tpl');
+        return $this->View->fetch('usermanager/list.tpl', array(
+            'search' => !empty($_SESSION['usermanager']['search'])? $_SESSION['usermanager']['search'] : ''
+        ));
     }
 
     public function listingRows() {
         if (empty($_POST['search'])) {
+            $_SESSION['usermanager']['search'] = '';
             $searchString = '%';
         } else {
+            $_SESSION['usermanager']['search'] = $_POST['search'];
             $searchString = '%'.$_POST['search'].'%';
         }
         $result = $this->DB->execute('

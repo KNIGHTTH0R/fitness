@@ -41,7 +41,6 @@ require([
                 search: searchInputNode.value
             }
         });
-        console.log(updateRowsRequest);
         updateRowsRequest.then(function(data) {
             if (data) {
                 domConstruct.place(data, rowsContainerNode, 'only');
@@ -63,6 +62,10 @@ require([
 
     // update rows on search
     on(searchInputNode, 'keyup', onKeyUp);
+
+    // set focus
+    searchInputNode.focus();
+    searchInputNode.select();
 
     // update rows on load
     updateRows();

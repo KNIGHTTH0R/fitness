@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         Users
-        <input id="searchInput" class="form-control" placeholder="Search" autofocus />
+        <input id="searchInput" class="form-control" placeholder="Search" value="{$search}" />
     </div>
     <div class="table-responsive">
         <table class="table table-striped" id="userList">
