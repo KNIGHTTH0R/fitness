@@ -2,3 +2,16 @@
     max-width: 100%;
     margin: 10px 0;
 }
+
+.hidden {
+    display: none;
+}
+
+#userList{
+    min-height: 100px;
+}
+
+.loadingOverlay {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.6);
+}
