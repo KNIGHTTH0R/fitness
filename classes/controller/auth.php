@@ -85,6 +85,10 @@ class Auth extends \Controller {
 	            || empty($_POST['register']['firstName'])
 	            || empty($_POST['register']['eMail'])
 				|| empty($_POST['register']['tel'])
+				|| empty($_POST['register']['street'])
+				|| empty($_POST['register']['city'])
+				|| empty($_POST['register']['zip'])
+				|| empty($_POST['register']['country'])
 	            || empty($_POST['register']['password'])
 	            || empty($_POST['register']['password2'])) {
 			\Message::add('Fill in all fields marked with an *');
@@ -111,6 +115,11 @@ class Auth extends \Controller {
             return;
         }
 
+		if (!preg_match('/^[0-9]+$/', $_POST['register']['zip'])) {
+			\Message::add('Invalid zip code format');
+			return;
+		}
+
 		$birthdate = $_POST['register']['birthdate']? implode('-', array_reverse(explode('/', $_POST['register']['birthdate']))) : NULL;
 
         try {
@@ -118,16 +127,20 @@ class Auth extends \Controller {
             $result = $this->DB->execute('
 				INSERT
 				INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dttel, dtbirthdate)
+                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dttel, dtbirthdate, dtstreet, dtcity, dtzip, dtcountry)
                 VALUES
-                  (:last_name, :first_name, :password, :email, :tel, :birthdate)
+                  (:last_name, :first_name, :password, :email, :tel, :birthdate, :street, :city, :zip, :country)
 			', array(
 				'last_name'  => $_POST['register']['lastName'],
                 'first_name' => $_POST['register']['firstName'],
                 'password'   => password_hash($_POST['register']['password'], PASSWORD_DEFAULT),
                 'email'      => $_POST['register']['eMail'],
 				'tel'      	 => $_POST['register']['tel'],
-				'birthdate'  => $birthdate
+				'birthdate'  => $birthdate,
+				'street'     => $_POST['register']['street'],
+				'city'       => $_POST['register']['city'],
+				'zip'      	 => $_POST['register']['zip'],
+				'country'    => $_POST['register']['country']
 			));
 
 			\Message::add('Registration successful. You can now login', 'success');

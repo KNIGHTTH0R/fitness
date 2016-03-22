@@ -32,6 +32,32 @@
                     <input type="text" class="form-control" id="inputBirthdate" name="dtbirthdate" placeholder="dd/mm/yyyy" value="{$user.dtbirthdate}" />
                 </div>
             </div>
+            <hr />
+            <div class="form-group">
+                <label for="inputStreet" class="col-sm-2 control-label">Street *</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputStreet" name="dtstreet" value="{$user.dtstreet}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputCity" class="col-sm-2 control-label">City *</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputCity" name="dtcity" value="{$user.dtcity}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputZip" class="col-sm-2 control-label">Zip *</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputZip" name="dtzip" value="{$user.dtzip}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputCountry" class="col-sm-2 control-label">Country *</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputCountry" name="dtcountry" value="{$user.dtcountry}" />
+                </div>
+            </div>
+            <hr />
             <div class="form-group">
                 <label for="inputUserType" class="col-sm-2 control-label">User type</label>
                 <div class="col-sm-10">

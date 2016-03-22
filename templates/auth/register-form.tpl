@@ -29,6 +29,32 @@
             <input class="form-control" type="text" name="register[birthdate]" placeholder="dd/mm/yyyy" value="{$smarty.post.register.birthdate}" id="register_birthdate" />
 	    </div>
     </div>
+    <hr />
+    <div class="form-group">
+		<label for="register_street" class="col-sm-4 control-label">Street *</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="register[street]" value="{$smarty.post.register.street}" id="register_street" />
+	    </div>
+    </div>
+    <div class="form-group">
+		<label for="register_city" class="col-sm-4 control-label">City *</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="register[city]" value="{$smarty.post.register.city}" id="register_city" />
+	    </div>
+    </div>
+    <div class="form-group">
+		<label for="register_zip" class="col-sm-4 control-label">Zip *</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="register[zip]" value="{$smarty.post.register.zip}" id="register_zip" />
+	    </div>
+    </div>
+    <div class="form-group">
+		<label for="register_country" class="col-sm-4 control-label">Country *</label>
+        <div class="col-sm-8">
+            <input class="form-control" type="text" name="register[country]" value="{$smarty.post.register.country}" id="register_country" />
+	    </div>
+    </div>
+    <hr />
 	<div class="form-group">
 		<label for="register_password" class="col-sm-4 control-label">Password *</label>
         <div class="col-sm-8">

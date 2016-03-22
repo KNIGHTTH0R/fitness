@@ -109,7 +109,11 @@ class Usermanager extends Backend {
                 || empty($_POST['dtfirst_name'])
                 || empty($_POST['dttype'])
                 || empty($_POST['dtemail'])
-                || empty($_POST['dttel'])) {
+                || empty($_POST['dttel'])
+                || empty($_POST['dtstreet'])
+                || empty($_POST['dtcity'])
+                || empty($_POST['dtzip'])
+                || empty($_POST['dtcountry'])) {
             \Message::add('You need to fill in all fields marked with an *');
             $_SESSION['user_edit'] = $_POST;
             $this->redirect('usermanager/edit/'.$iduser);
@@ -123,6 +127,12 @@ class Usermanager extends Backend {
 
         if (!empty($_POST['dtbirthdate']) && !preg_match('/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/', $_POST['dtbirthdate'])) {
             \Message::add('Invalid birthdate format');
+            $_SESSION['user_edit'] = $_POST;
+            $this->redirect('usermanager/edit/'.$iduser);
+        }
+
+        if (!preg_match('/^[0-9]+$/', $_POST['dtzip'])) {
+            \Message::add('Invalid zip code format');
             $_SESSION['user_edit'] = $_POST;
             $this->redirect('usermanager/edit/'.$iduser);
         }
@@ -157,7 +167,11 @@ class Usermanager extends Backend {
                     dttype = :type,
                     dtemail = :email,
                     dttel = :tel,
-                    dtbirthdate = :birthdate
+                    dtbirthdate = :birthdate,
+                    dtstreet = :street,
+                    dtcity = :city,
+                    dtzip = :zip,
+                    dtcountry = :country
                 WHERE iduser = :user
             ', array(
                 'last_name' => $_POST['dtlast_name'],
@@ -166,6 +180,10 @@ class Usermanager extends Backend {
                 'email' => $_POST['dtemail'],
                 'tel' => $_POST['dttel'],
                 'birthdate' => $birthdate,
+                'street' => $_POST['dtstreet'],
+                'city' => $_POST['dtcity'],
+                'zip' => $_POST['dtzip'],
+                'country' => $_POST['dtcountry'],
                 'user' => $iduser
             ));
             if ($_POST['dtpassword']) {
@@ -182,9 +200,9 @@ class Usermanager extends Backend {
             $this->DB->execute('
                 INSERT
                 INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dttype, dtemail, dttel, dtbirthdate)
+                  (dtlast_name, dtfirst_name, dtpassword, dttype, dtemail, dttel, dtbirthdate, dtstreet, dtcity, dtzip, dtcountry)
                 VALUES
-                  (:last_name, :first_name, :password, :type, :email, :tel, :birthdate)
+                  (:last_name, :first_name, :password, :type, :email, :tel, :birthdate, :street, :city, :zip, :country)
             ', array(
                 'last_name' => $_POST['dtlast_name'],
                 'first_name' => $_POST['dtfirst_name'],
@@ -192,6 +210,10 @@ class Usermanager extends Backend {
                 'email' => $_POST['dtemail'],
                 'tel' => $_POST['dttel'],
                 'birthdate' => $birthdate,
+                'street' => $_POST['dtstreet'],
+                'city' => $_POST['dtcity'],
+                'zip' => $_POST['dtzip'],
+                'country' => $_POST['dtcountry'],
                 'password' => password_hash($_POST['dtpassword'], PASSWORD_DEFAULT)
             ));
         }
