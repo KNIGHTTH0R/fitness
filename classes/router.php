@@ -5,6 +5,8 @@ class Router {
 	private function __construct() {}
 
 	public static function call($url, $default_controller = 'home', $default_method = 'index') {
+		if ($url[0] == '/')
+			$url = substr($url, 1);
 		$parts = explode('/', $url);
 		$controller = !empty($parts[0])? $parts[0] : $default_controller;
 		$method = !empty($parts[1])? $parts[1] : $default_method;

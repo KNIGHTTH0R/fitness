@@ -19,7 +19,7 @@ session_start();
 //get view
 $View = View::getInstance();
 
-$content = Router::call(isset($_GET['request'])? $_GET['request'] : '');
+$content = Router::call($_SERVER['REQUEST_URI']);
 
 //output html
 $View->assign(array(
