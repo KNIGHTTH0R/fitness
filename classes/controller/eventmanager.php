@@ -48,15 +48,22 @@ class Eventmanager extends Backend {
             $event['from']  = date('H:i', $time);
             $event['to']    = date('H:i', $time + ($event['dtduration'] * 60));
 
+            $year = date('Y', $time);
             $week_number = date('W', $time);
-            if (!isset($weeks[$week_number])) {
+            $group_key = $year.'-'.$week_number;
+            if (!isset($weeks[$group_key])) {
                 $weekday = date('w', $time);
                 $monday = $time - (($weekday-1) * 60 * 60 * 24);
                 $sunday = $monday + (6 * 60 * 60 * 24);
-                $weeks[$week_number]['label'] = date('d/m/Y', $monday).' - '.date('d/m/Y', $sunday);
+                $weeks[$group_key]['label'] = date('d/m/Y', $monday).' - '.date('d/m/Y', $sunday);
             }
 
-            $weeks[$week_number]['events'][$date][] = $event;
+            $weeks[$group_key]['events'][$date][] = $event;
+        }
+
+        // show archive weeks in reverse order
+        if ($archive) {
+            krsort($weeks);
         }
 
         $this->View->assign(array(
