@@ -79,8 +79,16 @@ class Event extends \Controller {
                 INSERT
                 INTO tblfitness_user2event
                   (fiuser, fievent)
-                VALUES
-                  (:user, :event)
+                SELECT :user, :event
+                FROM tblfitness_event
+                WHERE (dtlimit IS NULL
+                        OR dtlimit > (
+                            SELECT COUNT(fiuser)
+                            FROM tblfitness_user2event
+                            WHERE fievent = idevent
+                        )
+                      )
+                  AND idevent = :event
             ', array(
                 'user' => $isAuth['user'],
                 'event' => $idevent
