@@ -22,6 +22,8 @@
                         <a class="btn btn-danger btn-xs" href="{Config::BASEURL}event/unsubscribe/{$event.idevent}">Unsubscribe</a>
                     {elseif $event.dtcansubscribe}
                         <a class="btn btn-success btn-xs" href="{Config::BASEURL}event/subscribe/{$event.idevent}">Subscribe</a>
+                    {else}
+                        <em>complete</em>
                     {/if}
                     </td>
                 </tr>
