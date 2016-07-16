@@ -15,7 +15,7 @@
                     <td>{$event.dtname}</td>
                     <td>{$event.from} - {$event.to}</td>
                     <td>
-                        <span class="badge">{$event.dtcount}</span>
+                        <span class="badge">{$event.dtcount}{if $event.dtlimit} / {$event.dtlimit}{/if}</span>
                     </td>
                     <td>
                     {if $event.dtsubscribed}

@@ -15,13 +15,13 @@ class Event extends \Controller {
             \Message::add('Your account is not yet enabled. You can not subscribe to the classes.');
 
         $result = $this->DB->execute('
-            SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtlimit,
+            SELECT idevent, dtname, dtdescription, dtdate, dtduration, e.dtlimit,
                    COUNT(fiuser) AS dtsubscribed, (
                        SELECT COUNT(fiuser)
                        FROM tblfitness_user2event
                        WHERE fievent = idevent
                    ) AS dtcount
-            FROM tblfitness_event
+            FROM tblfitness_event AS e
             INNER JOIN tblfitness_event_type
                ON idevent_type = fievent_type
             LEFT JOIN tblfitness_user2event
