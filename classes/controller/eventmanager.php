@@ -178,12 +178,9 @@ class Eventmanager extends Backend {
                 INSERT
                 INTO tblfitness_event
                   (fievent_type, dtdate, dtduration, dtlimit)
-                VALUES
-                  (:event_type, :date, :duration, (
-                    SELECT dtlimit
-                    FROM tblfitness_event_type
-                    WHERE idevent_type = fievent_type
-                  ))
+                SELECT :event_type, :date, :duration, dtlimit
+                FROM tblfitness_event_type
+                WHERE idevent_type = fievent_type
             ', array(
                 'date' => $date,
                 'event_type' => $_POST['fievent_type'],
