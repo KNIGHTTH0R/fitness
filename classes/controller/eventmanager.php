@@ -180,7 +180,7 @@ class Eventmanager extends Backend {
                   (fievent_type, dtdate, dtduration, dtlimit)
                 SELECT :event_type, :date, :duration, dtlimit
                 FROM tblfitness_event_type
-                WHERE idevent_type = fievent_type
+                WHERE idevent_type = :event_type
             ', array(
                 'date' => $date,
                 'event_type' => $_POST['fievent_type'],
