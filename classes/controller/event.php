@@ -20,7 +20,7 @@ class Event extends \Controller {
                        SELECT COUNT(fiuser)
                        FROM tblfitness_user2event
                        WHERE fievent = idevent
-                   ) AS dtcount, IF(e.dtlimit IS NULL OR e.dtlimit > dtcount, 1, 0) AS dtcansubscribe
+                   ) AS dtcount
             FROM tblfitness_event AS e
             INNER JOIN tblfitness_event_type
                ON idevent_type = fievent_type
@@ -36,6 +36,12 @@ class Event extends \Controller {
             'user' => $user
         ));
         $events = $result->fetchAll();
+
+        //set dtcansubscribe
+        $events = array_map(function($event) {
+            $event['dtcansubscribe'] = !$event['dtlimit'] || intval($event['dtlimit']) > $event['dtcount'];
+            return $event;
+        }, $events);
 
         //group by week & do some formatting
         $weeks = array();
