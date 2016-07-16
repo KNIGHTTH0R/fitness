@@ -271,7 +271,7 @@ class Eventmanager extends Backend {
         $result = $this->DB->execute('
             SELECT *
             FROM tblfitness_event
-            WHERE idevent = :idevent
+            WHERE idevent = :event
         ', array(
             'event' => $idevent
         ));
