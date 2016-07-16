@@ -39,7 +39,7 @@ class Event extends \Controller {
 
         //set dtcansubscribe
         $events = array_map(function($event) {
-            $event['dtcansubscribe'] = !$event['dtlimit'] || intval($event['dtlimit']) > $event['dtcount'];
+            $event['dtcansubscribe'] = !$event['dtlimit'] || intval($event['dtlimit']) > intval($event['dtcount']);
             return $event;
         }, $events);
 
