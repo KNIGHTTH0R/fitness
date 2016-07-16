@@ -269,6 +269,17 @@ class Eventmanager extends Backend {
 
     public function subscriptions($idevent) {
         $result = $this->DB->execute('
+            SELECT *
+            FROM tblfitness_event
+            WHERE idevent = :idevent
+        ', array(
+            'event' => $idevent
+        ));
+        if (!$result && !isset($result[0]))
+            $this->redirect('eventmanager');
+        $event = $result[0];
+
+        $result = $this->DB->execute('
             SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel
             FROM tblfitness_user
             INNER JOIN tblfitness_user2event
@@ -296,7 +307,8 @@ class Eventmanager extends Backend {
         $this->View->assign(array(
             'idevent' => $idevent,
             'users' => $users,
-            'newusers' => $newusers
+            'newusers' => $newusers,
+            'complete' => $event['dtlimit'] && intval($event['dtlimit']) <= count($users)
         ));
         return $this->View->fetch('eventmanager/subscriptions.tpl');
     }

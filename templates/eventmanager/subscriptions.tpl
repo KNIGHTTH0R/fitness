@@ -1,6 +1,6 @@
 <form method="post" action="{Config::BASEURL}eventmanager/subscribe/{$idevent}">
     <div class="panel panel-default">
-        <div class="panel-heading">Class - Subscriptions</div>
+        <div class="panel-heading">Class - Subscriptions{if $complete} - <em>complete</em>{/if}</div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -12,7 +12,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {if $newusers}
+                    {if $newusers && !$complete}
                     <tr>
                         <td>
                             <button class="btn btn-success btn-xs" type="submit">
