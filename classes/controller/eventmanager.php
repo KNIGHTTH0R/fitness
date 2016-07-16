@@ -275,9 +275,10 @@ class Eventmanager extends Backend {
         ', array(
             'event' => $idevent
         ));
-        if (!$result || !isset($result[0]))
+        $events = $result->fetchAll();
+        if (!$events || !isset($events[0]))
             $this->redirect('eventmanager');
-        $event = $result[0];
+        $event = $events[0];
 
         $result = $this->DB->execute('
             SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel

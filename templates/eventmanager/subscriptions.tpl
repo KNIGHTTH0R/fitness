@@ -12,7 +12,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {if $newusers && !$complete}
+                    {if $newusers and !$complete}
                     <tr>
                         <td>
                             <button class="btn btn-success btn-xs" type="submit">
