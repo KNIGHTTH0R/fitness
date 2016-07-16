@@ -15,7 +15,7 @@ class Event extends \Controller {
             \Message::add('Your account is not yet enabled. You can not subscribe to the classes.');
 
         $result = $this->DB->execute('
-            SELECT idevent, dtname, dtdescription, dtdate, dtduration,
+            SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtlimit,
                    COUNT(fiuser) AS dtsubscribed, (
                        SELECT COUNT(fiuser)
                        FROM tblfitness_user2event

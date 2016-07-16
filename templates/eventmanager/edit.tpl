@@ -31,6 +31,14 @@
                     <input type="text" class="form-control" id="inputDuration" placeholder="minutes" name="dtduration" value="{$event.dtduration}" />
                 </div>
             </div>
+            {if $event.idevent}
+            <div class="form-group">
+                <label for="inputLimit" class="col-sm-2 control-label">Limit</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputLimit" name="dtlimit" value="{$event.dtlimit}" /> Leave empty for no-limit
+                </div>
+            </div>
+            {/if}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-default">{if $event.idevent}Update{else}Create{/if}</button>

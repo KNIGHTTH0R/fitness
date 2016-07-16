@@ -73,6 +73,12 @@ class Eventtypemanager extends Backend {
             $this->redirect('eventtypemanager/edit/'.$idevent_type);
         }
 
+        if (!preg_match('/^[0-9]*$/', $_POST['dtlimit'])) {
+            \Message::add('Invalid limit format');
+            $_SESSION['eventtype_edit'] = $_POST;
+            $this->redirect('eventtypemanager/edit/'.$idevent_type);
+        }
+
         if ($idevent_type) {
             $this->DB->execute('
                 UPDATE tblfitness_event_type
@@ -84,7 +90,7 @@ class Eventtypemanager extends Backend {
                 'name' => $_POST['dtname'],
                 'description' => $_POST['dtdescription']?: NULL,
                 'event_type' => $idevent_type,
-                'limit' => intval($_POST['dtlimit'])?: null
+                'limit' => $_POST['dtlimit']?: null
             ));
         } else {
             $this->DB->execute('
@@ -96,7 +102,7 @@ class Eventtypemanager extends Backend {
             ', array(
                 'name' => $_POST['dtname'],
                 'description' => $_POST['dtdescription']?: NULL,
-                'limit' => intval($_POST['dtlimit'])?: null
+                'limit' => $_POST['dtlimit']?: null
             ));
         }
         $this->redirect('eventtypemanager');

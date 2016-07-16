@@ -47,7 +47,7 @@
                     {/if}
                     <td class="text-center">
                         <a class="btn btn-default btn-xs" href="{Config::BASEURL}eventmanager/subscriptions/{$event.idevent}">
-                            Manage <span class="badge">{$event.dtusercount}</span>
+                            Manage <span class="badge">{$event.dtusercount}{if $event.dtlimit} / {$event.dtlimit}{/if}</span>
                         </a>
                     </td>
                     <td>

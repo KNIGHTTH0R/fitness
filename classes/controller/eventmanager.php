@@ -25,7 +25,7 @@ class Eventmanager extends Backend {
 
 	public function listing($archive = false) {
         $result = $this->DB->execute('
-            SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtvisible, dtarchive, COUNT(fiuser) AS dtusercount
+            SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtvisible, dtarchive, dtlimit, COUNT(fiuser) AS dtusercount
             FROM tblfitness_event
             INNER JOIN tblfitness_event_type
                ON idevent_type = fievent_type
@@ -150,6 +150,12 @@ class Eventmanager extends Backend {
             $this->redirect('eventmanager/edit/'.$idevent);
         }
 
+        if ($idevent && !preg_match('/^[0-9]+$/', $_POST['dtlimit'])) {
+            \Message::add('Invalid limit format');
+            $_SESSION['event_edit'] = $_POST;
+            $this->redirect('eventmanager/edit/'.$idevent);
+        }
+
         $date = implode('-', array_reverse(explode('/', $_POST['dtdate']))).' '.$_POST['dttime'].':00';
 
         if ($idevent) {
@@ -157,21 +163,27 @@ class Eventmanager extends Backend {
                 UPDATE tblfitness_event
                 SET fievent_type = :event_type,
                     dtdate = :date,
-                    dtduration = :duration
+                    dtduration = :duration,
+                    dtlimit = :limit
                 WHERE idevent = :event
             ', array(
                 'event' => $idevent,
                 'date' => $date,
                 'event_type' => $_POST['fievent_type'],
-                'duration' => $_POST['dtduration']
+                'duration' => $_POST['dtduration'],
+                'limit' => $_POST['dtlimit']?: null
             ));
         } else {
             $this->DB->execute('
                 INSERT
                 INTO tblfitness_event
-                  (fievent_type, dtdate, dtduration)
+                  (fievent_type, dtdate, dtduration, dtlimit)
                 VALUES
-                  (:event_type, :date, :duration)
+                  (:event_type, :date, :duration, (
+                    SELECT dtlimit
+                    FROM tblfitness_event_type
+                    WHERE idevent_type = fievent_type
+                  ))
             ', array(
                 'date' => $date,
                 'event_type' => $_POST['fievent_type'],
