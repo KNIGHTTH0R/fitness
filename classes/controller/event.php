@@ -20,7 +20,7 @@ class Event extends \Controller {
                        SELECT COUNT(fiuser)
                        FROM tblfitness_user2event
                        WHERE fievent = idevent
-                   ) AS dtcount
+                   ) AS dtcount, IF(e.dtlimit IS NULL OR e.dtlimit > dtcount, 1, 0) AS dtcansubscribe
             FROM tblfitness_event AS e
             INNER JOIN tblfitness_event_type
                ON idevent_type = fievent_type

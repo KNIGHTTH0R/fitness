@@ -20,7 +20,7 @@
                     <td>
                     {if $event.dtsubscribed}
                         <a class="btn btn-danger btn-xs" href="{Config::BASEURL}event/unsubscribe/{$event.idevent}">Unsubscribe</a>
-                    {else}
+                    {else $dtcansubscribe}
                         <a class="btn btn-success btn-xs" href="{Config::BASEURL}event/subscribe/{$event.idevent}">Subscribe</a>
                     {/if}
                     </td>
