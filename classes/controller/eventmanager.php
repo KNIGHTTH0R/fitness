@@ -275,7 +275,7 @@ class Eventmanager extends Backend {
         ', array(
             'event' => $idevent
         ));
-        if (!$result && !isset($result[0]))
+        if (!$result || !isset($result[0]))
             $this->redirect('eventmanager');
         $event = $result[0];
 
