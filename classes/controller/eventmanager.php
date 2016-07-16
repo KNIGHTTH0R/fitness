@@ -25,8 +25,8 @@ class Eventmanager extends Backend {
 
 	public function listing($archive = false) {
         $result = $this->DB->execute('
-            SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtvisible, dtarchive, dtlimit, COUNT(fiuser) AS dtusercount
-            FROM tblfitness_event
+            SELECT idevent, dtname, dtdescription, dtdate, dtduration, dtvisible, dtarchive, e.dtlimit, COUNT(fiuser) AS dtusercount
+            FROM tblfitness_event AS e
             INNER JOIN tblfitness_event_type
                ON idevent_type = fievent_type
             LEFT JOIN tblfitness_user2event
