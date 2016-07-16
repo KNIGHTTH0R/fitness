@@ -6,6 +6,7 @@
                 <tr>
                     <th></th>
                     <th>Name</th>
+                    <th>Limit</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@
                         </a>
                     </td>
                     <td>{$type.dtname}</td>
+                    <td>{if $type.dtlimit}{$type.dtlimit}{else}no limit{/if}</td>
                 </tr>
                 {/foreach}
             </tbody>

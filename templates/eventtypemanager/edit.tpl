@@ -9,6 +9,12 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="inputLimit" class="col-sm-2 control-label">Limit</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputLimit" name="dtlimit" value="{$type.dtlimit}" /> Leave empty for no-limit
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="inputDescription" class="col-sm-2 control-label">Description</label>
                 <div class="col-sm-10">
                     <textarea type="text" class="form-control" id="inputDescription" name="dtdescription">{$type.dtdescription}</textarea>
