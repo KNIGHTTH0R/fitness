@@ -24,7 +24,7 @@
 	</head>
 	<body class="tundra">
 		<div class="container">
-			<img id="Logo" src="{Config::BASEURL}files/image/logo.jpg" />
+			<img id="Logo" src="{Config::BASEURL}files/image/logo.png" />
 		</div>
 		{$menu}
 
