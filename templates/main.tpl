@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 		<title>{$title|default:''}</title>
-		<link rel="shortcut icon" href="{Config::BASEURL}files/image/favicon.png" type="image/png" />
+		<link rel="shortcut icon" href="{Config::BASEURL}files/image/favicon.ico" />
 		<link rel="icon" href="{Config::BASEURL}files/image/favicon.png" type="image/png" />
 		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/bootstrap/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="{Config::BASEURL}css/bootstrap/bootstrap-theme.min.css" />
