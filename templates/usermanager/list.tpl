@@ -18,7 +18,7 @@
                     <th>E-Mail</th>
                     <th>Telephone</th>
                     <th>Birthdate</th>
-                    <th>Subscription</th>
+                    <th class="text-center">Subscription</th>
                     <th class="text-center">Status</th>
                 </tr>
             </thead>

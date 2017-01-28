@@ -69,6 +69,17 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="inputSubscription" class="col-sm-2 control-label">Subscription</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="inputSubscription" name="dtsubscription">
+                        <option></option>
+                        {foreach $subscriptions as $key => $value}
+                        <option value="{$key}"{if $key eq $user.dtsubscription} selected="selected"{/if}>{$value}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
             {if $user.iduser}
             <hr />
             <p>

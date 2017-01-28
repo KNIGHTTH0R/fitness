@@ -9,7 +9,7 @@
                         <th>Name</th>
                         <th>E-Mail</th>
                         <th>Telephone</th>
-                        <th>Subscription</th>
+                        <th class="text-center">Subscription</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,22 @@
                         <td><a href="{Config::BASEURL}usermanager/edit/{$user.iduser}" />{$user.dtlast_name} {$user.dtfirst_name}</a></td>
                         <td>{if $user.dtemail}<a href="mailto:{$user.dtemail}">{$user.dtemail}</a>{/if}</td>
                         <td>{if $user.dttel}<a href="tel:{$user.dttel}">{$user.dttel}</a>{/if}</td>
-                        <td>{$user.dtsubscription}</td>
+                        <td class="text-center">
+                            {if $user.dtsubscription eq 'CHECK_CARD'}
+                            <a href="{Config::BASEURL}eventmanager/togglesignature/{$idevent}/{$user.iduser}" style="text-decoration: none">
+                                <span class="label label-info">
+                                    {$user.dtsubscription}
+                                    {if $user.dtsubscription_signature}
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color: #060"></span>
+                                    {else}
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #600"></span>
+                                    {/if}
+                                </span>
+                            </a>
+                            {elseif $user.dtsubscription}
+                            <span class="label {if $user.dtsubscription eq 'ABO'}label-success{else}label-info{/if}">{$user.dtsubscription}</span>
+                            {/if}
+                        </td>
                     </tr>
                     {/foreach}
                 </tbody>

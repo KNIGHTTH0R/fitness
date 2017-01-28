@@ -281,7 +281,7 @@ class Eventmanager extends Backend {
         $event = $events[0];
 
         $result = $this->DB->execute('
-            SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel
+            SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel, dtsubscription, dtsubscription_signature
             FROM tblfitness_user
             INNER JOIN tblfitness_user2event
               ON iduser = fiuser
@@ -351,6 +351,22 @@ class Eventmanager extends Backend {
                   AND idevent = :event
             ', array(
                 'user' => $_POST['fiuser'],
+                'event' => $idevent
+            ));
+        } catch (\Exception $e) {}
+
+        $this->redirect('eventmanager/subscriptions/'.$idevent);
+    }
+
+    public function togglesignature($idevent, $iduser) {
+        try {
+            $this->DB->execute('
+                UPDATE tblfitness_user2event
+                SET dtsubscription_signature = IF(dtsubscription_signature = 1, 0, 1)
+                WHERE fiuser = :user
+                  AND fievent = :event
+            ', array(
+                'user' => $iduser,
                 'event' => $idevent
             ));
         } catch (\Exception $e) {}
