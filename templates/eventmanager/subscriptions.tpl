@@ -9,6 +9,7 @@
                         <th>Name</th>
                         <th>E-Mail</th>
                         <th>Telephone</th>
+                        <th>Subscription</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,7 +20,7 @@
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </button>
                         </td>
-                        <td colspan="3">
+                        <td colspan="4">
                             <select name="fiuser" class="form-control input-sm">
                                 <option></option>
                                 {foreach $newusers as $user}
@@ -36,9 +37,10 @@
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
                         </td>
-                        <td>{$user.dtlast_name} {$user.dtfirst_name}</td>
+                        <td><a href="{Config::BASEURL}usermanager/edit/{$user.iduser}" />{$user.dtlast_name} {$user.dtfirst_name}</a></td>
                         <td>{if $user.dtemail}<a href="mailto:{$user.dtemail}">{$user.dtemail}</a>{/if}</td>
                         <td>{if $user.dttel}<a href="tel:{$user.dttel}">{$user.dttel}</a>{/if}</td>
+                        <td>{$user.dtsubscription}</td>
                     </tr>
                     {/foreach}
                 </tbody>
