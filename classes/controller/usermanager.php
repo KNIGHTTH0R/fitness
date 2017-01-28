@@ -34,6 +34,13 @@ class Usermanager extends Backend {
             $_SESSION['usermanager']['search'] = $_POST['search'];
             $searchString = '%'.$_POST['search'].'%';
         }
+
+        if ($_POST['newUsers']) {
+            $orderBy = 'iduser DESC';
+        } else {
+            $orderBy = 'dtlast_name ASC, dtfirst_name ASC';
+        }
+
         $result = $this->DB->execute('
             SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dttel, dtbirthdate, dtenabled
             FROM tblfitness_user
@@ -42,7 +49,7 @@ class Usermanager extends Backend {
                OR dtfirst_name LIKE :searchString
                OR dtemail LIKE :searchString
                OR dttel LIKE :searchString
-            ORDER BY dtlast_name ASC, dtfirst_name ASC
+            ORDER BY '.$orderBy.'
             LIMIT 50
         ', array(
             'searchString' => $searchString

@@ -14,6 +14,7 @@
     <td>{if $user.dtemail}<a href="mailto:{$user.dtemail}">{$user.dtemail}</a>{/if}</td>
     <td>{if $user.dttel}<a href="tel:{$user.dttel}">{$user.dttel}</a>{/if}</td>
     <td>{$user.dtbirthdate}</td>
+    <td>{$user.dtsubscription}</td>
     <td class="text-center {if $user.dtenabled}success{else}danger{/if}">
         {if $user.dtenabled}
         <a class="btn btn-default btn-xs" href="{Config::BASEURL}usermanager/disable/{$user.iduser}">

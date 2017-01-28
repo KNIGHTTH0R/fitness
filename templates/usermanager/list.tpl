@@ -2,6 +2,10 @@
     <div class="panel-heading">
         Users
         <input id="searchInput" class="form-control" placeholder="Search" value="{$search}" />
+        <label>
+            New Users First:
+            <input id="newUsersInput" type="checkbox" />
+        </label>
     </div>
     <div class="table-responsive">
         <table class="table table-striped" id="userList">
@@ -14,6 +18,7 @@
                     <th>E-Mail</th>
                     <th>Telephone</th>
                     <th>Birthdate</th>
+                    <th>Subscription</th>
                     <th class="text-center">Status</th>
                 </tr>
             </thead>

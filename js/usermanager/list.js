@@ -14,6 +14,7 @@ require([
 
     // init variables
     var searchInputNode    = dom.byId('searchInput');
+    var newUsersInputNode  = dom.byId('newUsersInput');
     var rowsContainerNode  = dom.byId('rowsContainer');
     var loadingOverlayNode = dom.byId('loadingOverlay');
     var userListNode       = dom.byId('userList');
@@ -38,7 +39,8 @@ require([
     var updateRows = function() {
         updateRowsRequest = request.post(config.app.baseUri+'usermanager/listingRows', {
             data: {
-                search: searchInputNode.value
+                search: searchInputNode.value,
+                newUsers: newUsersInputNode.checked? '1' : '0'
             }
         });
         updateRowsRequest.then(function(data) {
@@ -51,7 +53,7 @@ require([
         });
     };
 
-    var onKeyUp = function() {
+    var updateList = function() {
         showLoading();
         if (searchTimeout)
             clearTimeout(searchTimeout);
@@ -61,7 +63,8 @@ require([
     }
 
     // update rows on search
-    on(searchInputNode, 'keyup', onKeyUp);
+    on(searchInputNode, 'keyup', updateList);
+    on(newUsersInputNode, 'change', updateList);
 
     // set focus
     searchInputNode.focus();
