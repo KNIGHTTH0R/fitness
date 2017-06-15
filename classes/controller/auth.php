@@ -115,11 +115,6 @@ class Auth extends \Controller {
             return;
         }
 
-		if (!preg_match('/^[0-9]+$/', $_POST['register']['zip'])) {
-			\Message::add('Invalid zip code format');
-			return;
-		}
-
 		$birthdate = $_POST['register']['birthdate']? implode('-', array_reverse(explode('/', $_POST['register']['birthdate']))) : NULL;
 
         try {
