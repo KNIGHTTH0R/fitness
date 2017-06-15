@@ -21,6 +21,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="inputCheckCard" class="col-sm-2 control-label">Check Card</label>
+                <div class="col-sm-10">
+                    <input type="hidden" value="0" name="dtcheck_card" />
+                    <input type="checkbox" class="form-control" id="inputCheckCard" value="1" name="dtcheck_card"{if $type.dtcheck_card} checked="checked"{/if} />
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-default">{if $type.idevent_type}Update{else}Create{/if}</button>
                 </div>

@@ -34,15 +34,23 @@ class Usermanager extends Backend {
             $_SESSION['usermanager']['search'] = $_POST['search'];
             $searchString = '%'.$_POST['search'].'%';
         }
+
+        if ($_POST['newUsers']) {
+            $orderBy = 'iduser DESC';
+        } else {
+            $orderBy = 'dtlast_name ASC, dtfirst_name ASC';
+        }
+
         $result = $this->DB->execute('
-            SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail, dttel, dtbirthdate, dtenabled
+            SELECT iduser, dtlast_name, dtfirst_name, dttype, dtemail,
+                   dttel, dtbirthdate, dtenabled, dtsubscription
             FROM tblfitness_user
             WHERE iduser LIKE :searchString
                OR dtlast_name LIKE :searchString
                OR dtfirst_name LIKE :searchString
                OR dtemail LIKE :searchString
                OR dttel LIKE :searchString
-            ORDER BY dtlast_name ASC, dtfirst_name ASC
+            ORDER BY '.$orderBy.'
             LIMIT 50
         ', array(
             'searchString' => $searchString
@@ -94,9 +102,15 @@ class Usermanager extends Backend {
             'admin' => 'Admin'
         );
 
+        $subscriptions = array(
+            'ABO' => 'Abo',
+            'CHECK_CARD' => 'Check Card'
+        );
+
         $this->View->assign(array(
             'user' => $user,
-            'types' => $types
+            'types' => $types,
+            'subscriptions' => $subscriptions
         ));
         return $this->View->fetch('usermanager/edit.tpl');
     }
@@ -171,7 +185,8 @@ class Usermanager extends Backend {
                     dtstreet = :street,
                     dtcity = :city,
                     dtzip = :zip,
-                    dtcountry = :country
+                    dtcountry = :country,
+                    dtsubscription = :subscription
                 WHERE iduser = :user
             ', array(
                 'last_name' => $_POST['dtlast_name'],
@@ -184,6 +199,7 @@ class Usermanager extends Backend {
                 'city' => $_POST['dtcity'],
                 'zip' => $_POST['dtzip'],
                 'country' => $_POST['dtcountry'],
+                'subscription' => $_POST['dtsubscription'] ?: null,
                 'user' => $iduser
             ));
             if ($_POST['dtpassword']) {
@@ -200,9 +216,9 @@ class Usermanager extends Backend {
             $this->DB->execute('
                 INSERT
                 INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dttype, dtemail, dttel, dtbirthdate, dtstreet, dtcity, dtzip, dtcountry)
+                  (dtlast_name, dtfirst_name, dtpassword, dttype, dtemail, dttel, dtbirthdate, dtstreet, dtcity, dtzip, dtcountry, dtsubscription)
                 VALUES
-                  (:last_name, :first_name, :password, :type, :email, :tel, :birthdate, :street, :city, :zip, :country)
+                  (:last_name, :first_name, :password, :type, :email, :tel, :birthdate, :street, :city, :zip, :country, :subscription)
             ', array(
                 'last_name' => $_POST['dtlast_name'],
                 'first_name' => $_POST['dtfirst_name'],
@@ -214,6 +230,7 @@ class Usermanager extends Backend {
                 'city' => $_POST['dtcity'],
                 'zip' => $_POST['dtzip'],
                 'country' => $_POST['dtcountry'],
+                'subscription' => $_POST['dtsubscription'] ?: null,
                 'password' => password_hash($_POST['dtpassword'], PASSWORD_DEFAULT)
             ));
         }

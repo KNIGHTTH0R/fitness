@@ -22,7 +22,7 @@ class Eventtypemanager extends Backend {
 
 	public function listing() {
         $result = $this->DB->execute('
-            SELECT idevent_type, dtname, dtlimit
+            SELECT idevent_type, dtname, dtlimit, dtcheck_card
             FROM tblfitness_event_type
             ORDER BY dtname ASC
         ');
@@ -84,25 +84,28 @@ class Eventtypemanager extends Backend {
                 UPDATE tblfitness_event_type
                 SET dtname = :name,
                     dtdescription = :description,
-                    dtlimit = :limit
+                    dtlimit = :limit,
+                    dtcheck_card = :check_card
                 WHERE idevent_type = :event_type
             ', array(
                 'name' => $_POST['dtname'],
                 'description' => $_POST['dtdescription']?: NULL,
                 'event_type' => $idevent_type,
-                'limit' => $_POST['dtlimit']?: null
+                'limit' => $_POST['dtlimit']?: null,
+                'check_card' => $_POST['dtcheck_card']
             ));
         } else {
             $this->DB->execute('
                 INSERT
                 INTO tblfitness_event_type
-                  (dtname, dtdescription, dtlimit)
+                  (dtname, dtdescription, dtlimit, dtcheck_card)
                 VALUES
-                  (:name, :description, :limit)
+                  (:name, :description, :limit, :check_card)
             ', array(
                 'name' => $_POST['dtname'],
                 'description' => $_POST['dtdescription']?: NULL,
-                'limit' => $_POST['dtlimit']?: null
+                'limit' => $_POST['dtlimit']?: null,
+                'check_card' => $_POST['dtcheck_card']
             ));
         }
         $this->redirect('eventtypemanager');

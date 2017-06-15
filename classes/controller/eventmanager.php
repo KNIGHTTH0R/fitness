@@ -281,7 +281,20 @@ class Eventmanager extends Backend {
         $event = $events[0];
 
         $result = $this->DB->execute('
-            SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel
+            SELECT *
+            FROM tblfitness_event_type
+            WHERE idevent_type = :type
+        ', array(
+            'type' => $event['fievent_type']
+        ));
+        $types = $result->fetchAll();
+        if (!$types || !isset($types[0]))
+            $this->redirect('eventmanager');
+        $type = $types[0];
+
+        $result = $this->DB->execute('
+            SELECT iduser, dtlast_name, dtfirst_name, dtemail, dttel,
+                   dtsubscription, dtsubscription_signature, dtevent_signature
             FROM tblfitness_user
             INNER JOIN tblfitness_user2event
               ON iduser = fiuser
@@ -309,6 +322,7 @@ class Eventmanager extends Backend {
             'idevent' => $idevent,
             'users' => $users,
             'newusers' => $newusers,
+            'type' => $type,
             'complete' => $event['dtlimit'] && intval($event['dtlimit']) <= count($users)
         ));
         return $this->View->fetch('eventmanager/subscriptions.tpl');
@@ -351,6 +365,38 @@ class Eventmanager extends Backend {
                   AND idevent = :event
             ', array(
                 'user' => $_POST['fiuser'],
+                'event' => $idevent
+            ));
+        } catch (\Exception $e) {}
+
+        $this->redirect('eventmanager/subscriptions/'.$idevent);
+    }
+
+    public function togglesignature($idevent, $iduser) {
+        try {
+            $this->DB->execute('
+                UPDATE tblfitness_user2event
+                SET dtsubscription_signature = IF(dtsubscription_signature = 1, 0, 1)
+                WHERE fiuser = :user
+                  AND fievent = :event
+            ', array(
+                'user' => $iduser,
+                'event' => $idevent
+            ));
+        } catch (\Exception $e) {}
+
+        $this->redirect('eventmanager/subscriptions/'.$idevent);
+    }
+
+    public function toggleeventsignature($idevent, $iduser) {
+        try {
+            $this->DB->execute('
+                UPDATE tblfitness_user2event
+                SET dtevent_signature = IF(dtevent_signature = 1, 0, 1)
+                WHERE fiuser = :user
+                  AND fievent = :event
+            ', array(
+                'user' => $iduser,
                 'event' => $idevent
             ));
         } catch (\Exception $e) {}
