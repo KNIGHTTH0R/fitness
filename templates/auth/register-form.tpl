@@ -17,7 +17,6 @@
             <input class="form-control" type="text" name="register[eMail]" value="{$smarty.post.register.eMail}" id="register_eMail" />
 	    </div>
     </div>
-    <!--
     <div class="form-group">
 		<label for="register_tel" class="col-sm-4 control-label">Telephone *</label>
         <div class="col-sm-8">
@@ -30,9 +29,7 @@
             <input class="form-control" type="text" name="register[birthdate]" placeholder="dd/mm/yyyy" value="{$smarty.post.register.birthdate}" id="register_birthdate" />
 	    </div>
     </div>
-    -->
     <hr />
-    <!--
     <div class="form-group">
 		<label for="register_street" class="col-sm-4 control-label">Street *</label>
         <div class="col-sm-8">
@@ -45,7 +42,6 @@
             <input class="form-control" type="text" name="register[city]" value="{$smarty.post.register.city}" id="register_city" />
 	    </div>
     </div>
-    -->
     <div class="form-group">
 		<label for="register_zip" class="col-sm-4 control-label">Zip *</label>
         <div class="col-sm-8">
@@ -58,7 +54,6 @@
             <input class="form-control" type="text" name="register[country]" value="{$smarty.post.register.country}" id="register_country" />
 	    </div>
     </div>
-    <!--
     <hr />
 	<div class="form-group">
 		<label for="register_password" class="col-sm-4 control-label">Password *</label>
@@ -72,7 +67,6 @@
             <input class="form-control" type="password" name="register[password2]" id="register_password2" />
 	    </div>
     </div>
-    -->
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
             <input type="submit" class="btn btn-primary" value="Register" />
