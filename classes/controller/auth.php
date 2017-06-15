@@ -122,9 +122,9 @@ class Auth extends \Controller {
             $result = $this->DB->execute('
 				INSERT
 				INTO tblfitness_user
-                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dttel, dtbirthdate, dtstreet, dtcity, dtzip, dtcountry)
+                  (dtlast_name, dtfirst_name, dtpassword, dtemail, dttel, dtbirthdate, dtstreet, dtcity, dtzip, dtcountry, dtenabled)
                 VALUES
-                  (:last_name, :first_name, :password, :email, :tel, :birthdate, :street, :city, :zip, :country)
+                  (:last_name, :first_name, :password, :email, :tel, :birthdate, :street, :city, :zip, :country, :enabled)
 			', array(
 				'last_name'  => $_POST['register']['lastName'],
                 'first_name' => $_POST['register']['firstName'],
@@ -135,7 +135,8 @@ class Auth extends \Controller {
 				'street'     => $_POST['register']['street'],
 				'city'       => $_POST['register']['city'],
 				'zip'      	 => $_POST['register']['zip'],
-				'country'    => $_POST['register']['country']
+				'country'    => $_POST['register']['country'],
+				'enabled'    => 1
 			));
 
 			\Message::add('Registration successful. You can now login', 'success');
